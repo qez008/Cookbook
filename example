@@ -1,0 +1,33 @@
+
+// list of ingredients where order does not matter
+
+list [name] { i1 i2 i3 }
+
+ordered {
+    i1  i2
+    i3  i4
+}
+
+
+// can be flipped vertically
+
+vertical [name] {
+    i1  i2                  // i2   i1  
+    i3  i4                  // i4   i3
+}
+
+// can be flipped horizontally
+
+horizontal [name] {
+    i1  i2                  // i3   i4  
+    i3  i4                  // i1   i2
+}
+
+
+// [recipie name] = match [input]
+// undefined if no match
+
+recipie = match horizontal {
+    i1  i2
+    i3  i4
+}
