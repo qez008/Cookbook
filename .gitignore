@@ -38,4 +38,4 @@ gradle-app.setting
 .gradletasknamecache
 
 # antlr
-gen/
+src/main/kotlin/gen.gen/
