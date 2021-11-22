@@ -29,12 +29,6 @@ public interface CraftVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRows(CraftParser.RowsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#newrow}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNewrow(CraftParser.NewrowContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CraftParser#list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -53,15 +47,15 @@ public interface CraftVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRecipe(CraftParser.RecipeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#declaration}.
+	 * Visit a parse tree produced by {@link CraftParser#def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDeclaration(CraftParser.DeclarationContext ctx);
+	T visitDef(CraftParser.DefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#declarations}.
+	 * Visit a parse tree produced by {@link CraftParser#defs}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDeclarations(CraftParser.DeclarationsContext ctx);
+	T visitDefs(CraftParser.DefsContext ctx);
 }

@@ -52,18 +52,6 @@ public class CraftBaseListener implements CraftListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNewrow(CraftParser.NewrowContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNewrow(CraftParser.NewrowContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterList(CraftParser.ListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -100,25 +88,25 @@ public class CraftBaseListener implements CraftListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(CraftParser.DeclarationContext ctx) { }
+	@Override public void enterDef(CraftParser.DefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(CraftParser.DeclarationContext ctx) { }
+	@Override public void exitDef(CraftParser.DefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarations(CraftParser.DeclarationsContext ctx) { }
+	@Override public void enterDefs(CraftParser.DefsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarations(CraftParser.DeclarationsContext ctx) { }
+	@Override public void exitDefs(CraftParser.DefsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

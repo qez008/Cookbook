@@ -6,20 +6,19 @@ WS : [ \t\n]+ -> skip ;
 Open : '{';
 Close : '}';
 
-ID : [a-zA-Z]+;
-Amount : [0-9]+;
+ID : '_' | [a-zA-Z]+;
+Amount :  [0-9]+;
 
-item : ID ':' Amount;
+item : ID; // ':' Amount;
 
-row : item row | item;
-rows : row newrow rows | row;
-newrow : '&';
+row : item+;
+rows : row ',' rows | row;
 
 list : 'list' Open row Close;
 block : 'block' Open rows Close;
 
 recipe : list | block;
 
-declaration : ID '=' recipe;
+def : ID '=' recipe;
 
-declarations : declaration+;
+defs : def+;

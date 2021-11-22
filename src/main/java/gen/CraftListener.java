@@ -38,16 +38,6 @@ public interface CraftListener extends ParseTreeListener {
 	 */
 	void exitRows(CraftParser.RowsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CraftParser#newrow}.
-	 * @param ctx the parse tree
-	 */
-	void enterNewrow(CraftParser.NewrowContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CraftParser#newrow}.
-	 * @param ctx the parse tree
-	 */
-	void exitNewrow(CraftParser.NewrowContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CraftParser#list}.
 	 * @param ctx the parse tree
 	 */
@@ -78,23 +68,23 @@ public interface CraftListener extends ParseTreeListener {
 	 */
 	void exitRecipe(CraftParser.RecipeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CraftParser#declaration}.
+	 * Enter a parse tree produced by {@link CraftParser#def}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclaration(CraftParser.DeclarationContext ctx);
+	void enterDef(CraftParser.DefContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CraftParser#declaration}.
+	 * Exit a parse tree produced by {@link CraftParser#def}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclaration(CraftParser.DeclarationContext ctx);
+	void exitDef(CraftParser.DefContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CraftParser#declarations}.
+	 * Enter a parse tree produced by {@link CraftParser#defs}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclarations(CraftParser.DeclarationsContext ctx);
+	void enterDefs(CraftParser.DefsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CraftParser#declarations}.
+	 * Exit a parse tree produced by {@link CraftParser#defs}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclarations(CraftParser.DeclarationsContext ctx);
+	void exitDefs(CraftParser.DefsContext ctx);
 }

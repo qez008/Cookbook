@@ -1,6 +1,14 @@
-a = list { a:1 b:2 c:3 }
-b = block { a:1 b:2 c:3 }
-c = block {
-	a:1 b:2 &
-	c:3 d:4
+potion = list { bottle water ingredient }
+b = block { a b c }
+c = block { a b , c d }
+d = block {
+	a b c ,
+	d e f ,
+	g h i
+}
+
+e = block {
+	aaa b c ,
+	d _ f ,
+	_ h _
 }

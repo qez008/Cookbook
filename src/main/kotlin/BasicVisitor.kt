@@ -6,23 +6,24 @@ class BasicVisitor : CraftBaseVisitor<String>() {
     var indent = 0
     fun ind(i: Int) = "  ".repeat(i)
 
-    override fun visitDeclarations(ctx: CraftParser.DeclarationsContext?): String {
+    override fun visitDefs(ctx: CraftParser.DefsContext?): String {
         if (ctx == null) return ""
 
         var result = ""
-        for (dec in ctx.declaration()) {
-            result += "${visitDeclaration(dec)} \n"
+        for (def in ctx.def()) {
+            result += "${visitDef(def)} \n"
         }
         return result
     }
 
-    override fun visitDeclaration(ctx: CraftParser.DeclarationContext?): String {
+    override fun visitDef(ctx: CraftParser.DefContext?): String {
         if (ctx == null) return ""
 
         val res = ctx.recipe()
+        fun showID(dec: CraftParser.DefContext) = dec.ID().toString().uppercase()
         return when {
-            res.list() != null -> "list ${ctx.ID()}:${visitList(res.list())}"
-            res.block() != null -> "block ${ctx.ID()}:${visitBlock(res.block())}"
+            res.list() != null -> "list ${showID(ctx)}:${visitList(res.list())}"
+            res.block() != null -> "block ${showID(ctx)}:${visitBlock(res.block())}"
             else -> TODO()
         }
     }
@@ -54,12 +55,13 @@ class BasicVisitor : CraftBaseVisitor<String>() {
             ?: ""
 
     override fun visitRow(ctx: CraftParser.RowContext?): String =
-        ctx?.let { row -> ind(indent) + visitItem(row.item()) + visitRow(row.row()) }
+        ctx?.let { it.item().joinToString(prefix = ind(indent), separator = "  ") { item -> visitItem(item) } }
             ?: ""
 
     override fun visitItem(ctx: CraftParser.ItemContext?): String {
         if (ctx == null) return ""
-        return "${ctx.ID()}(${ctx.Amount()})"
+        return ctx.ID().text
+//        return "${ctx.ID()}(${ctx.Amount()})"
     }
 
 }

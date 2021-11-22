@@ -17,27 +17,26 @@ public class CraftParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, WS=6, Open=7, Close=8, ID=9, Amount=10;
+		T__0=1, T__1=2, T__2=3, T__3=4, WS=5, Open=6, Close=7, ID=8, Amount=9;
 	public static final int
-		RULE_item = 0, RULE_row = 1, RULE_rows = 2, RULE_newrow = 3, RULE_list = 4, 
-		RULE_block = 5, RULE_recipe = 6, RULE_declaration = 7, RULE_declarations = 8;
+		RULE_item = 0, RULE_row = 1, RULE_rows = 2, RULE_list = 3, RULE_block = 4, 
+		RULE_recipe = 5, RULE_def = 6, RULE_defs = 7;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"item", "row", "rows", "newrow", "list", "block", "recipe", "declaration", 
-			"declarations"
+			"item", "row", "rows", "list", "block", "recipe", "def", "defs"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "':'", "'&'", "'list'", "'block'", "'='", null, "'{'", "'}'"
+			null, "','", "'list'", "'block'", "'='", null, "'{'", "'}'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, "WS", "Open", "Close", "ID", "Amount"
+			null, null, null, null, null, "WS", "Open", "Close", "ID", "Amount"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -93,7 +92,6 @@ public class CraftParser extends Parser {
 
 	public static class ItemContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
-		public TerminalNode Amount() { return getToken(CraftParser.Amount, 0); }
 		public ItemContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -119,12 +117,8 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(18);
+			setState(16);
 			match(ID);
-			setState(19);
-			match(T__0);
-			setState(20);
-			match(Amount);
 			}
 		}
 		catch (RecognitionException re) {
@@ -139,11 +133,11 @@ public class CraftParser extends Parser {
 	}
 
 	public static class RowContext extends ParserRuleContext {
-		public ItemContext item() {
-			return getRuleContext(ItemContext.class,0);
+		public List<ItemContext> item() {
+			return getRuleContexts(ItemContext.class);
 		}
-		public RowContext row() {
-			return getRuleContext(RowContext.class,0);
+		public ItemContext item(int i) {
+			return getRuleContext(ItemContext.class,i);
 		}
 		public RowContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -167,26 +161,24 @@ public class CraftParser extends Parser {
 	public final RowContext row() throws RecognitionException {
 		RowContext _localctx = new RowContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_row);
+		int _la;
 		try {
-			setState(26);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(19); 
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			do {
 				{
-				setState(22);
-				item();
-				setState(23);
-				row();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
 				{
-				setState(25);
+				setState(18);
 				item();
 				}
-				break;
+				}
+				setState(21); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==ID );
 			}
 		}
 		catch (RecognitionException re) {
@@ -203,9 +195,6 @@ public class CraftParser extends Parser {
 	public static class RowsContext extends ParserRuleContext {
 		public RowContext row() {
 			return getRuleContext(RowContext.class,0);
-		}
-		public NewrowContext newrow() {
-			return getRuleContext(NewrowContext.class,0);
 		}
 		public RowsContext rows() {
 			return getRuleContext(RowsContext.class,0);
@@ -233,68 +222,27 @@ public class CraftParser extends Parser {
 		RowsContext _localctx = new RowsContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_rows);
 		try {
-			setState(33);
+			setState(28);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(28);
+				setState(23);
 				row();
-				setState(29);
-				newrow();
-				setState(30);
+				setState(24);
+				match(T__0);
+				setState(25);
 				rows();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(32);
+				setState(27);
 				row();
 				}
 				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class NewrowContext extends ParserRuleContext {
-		public NewrowContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_newrow; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterNewrow(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitNewrow(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitNewrow(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final NewrowContext newrow() throws RecognitionException {
-		NewrowContext _localctx = new NewrowContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_newrow);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(35);
-			match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -335,17 +283,17 @@ public class CraftParser extends Parser {
 
 	public final ListContext list() throws RecognitionException {
 		ListContext _localctx = new ListContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_list);
+		enterRule(_localctx, 6, RULE_list);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
-			match(T__2);
-			setState(38);
+			setState(30);
+			match(T__1);
+			setState(31);
 			match(Open);
-			setState(39);
+			setState(32);
 			row();
-			setState(40);
+			setState(33);
 			match(Close);
 			}
 		}
@@ -387,17 +335,17 @@ public class CraftParser extends Parser {
 
 	public final BlockContext block() throws RecognitionException {
 		BlockContext _localctx = new BlockContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_block);
+		enterRule(_localctx, 8, RULE_block);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
-			match(T__3);
-			setState(43);
+			setState(35);
+			match(T__2);
+			setState(36);
 			match(Open);
-			setState(44);
+			setState(37);
 			rows();
-			setState(45);
+			setState(38);
 			match(Close);
 			}
 		}
@@ -440,22 +388,22 @@ public class CraftParser extends Parser {
 
 	public final RecipeContext recipe() throws RecognitionException {
 		RecipeContext _localctx = new RecipeContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_recipe);
+		enterRule(_localctx, 10, RULE_recipe);
 		try {
-			setState(49);
+			setState(42);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__2:
+			case T__1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(47);
+				setState(40);
 				list();
 				}
 				break;
-			case T__3:
+			case T__2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(48);
+				setState(41);
 				block();
 				}
 				break;
@@ -474,41 +422,41 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class DeclarationContext extends ParserRuleContext {
+	public static class DefContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
 		public RecipeContext recipe() {
 			return getRuleContext(RecipeContext.class,0);
 		}
-		public DeclarationContext(ParserRuleContext parent, int invokingState) {
+		public DefContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_declaration; }
+		@Override public int getRuleIndex() { return RULE_def; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDeclaration(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDef(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDeclaration(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDef(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDeclaration(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDef(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DeclarationContext declaration() throws RecognitionException {
-		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_declaration);
+	public final DefContext def() throws RecognitionException {
+		DefContext _localctx = new DefContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_def);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51);
+			setState(44);
 			match(ID);
-			setState(52);
-			match(T__4);
-			setState(53);
+			setState(45);
+			match(T__3);
+			setState(46);
 			recipe();
 			}
 		}
@@ -523,50 +471,50 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class DeclarationsContext extends ParserRuleContext {
-		public List<DeclarationContext> declaration() {
-			return getRuleContexts(DeclarationContext.class);
+	public static class DefsContext extends ParserRuleContext {
+		public List<DefContext> def() {
+			return getRuleContexts(DefContext.class);
 		}
-		public DeclarationContext declaration(int i) {
-			return getRuleContext(DeclarationContext.class,i);
+		public DefContext def(int i) {
+			return getRuleContext(DefContext.class,i);
 		}
-		public DeclarationsContext(ParserRuleContext parent, int invokingState) {
+		public DefsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_declarations; }
+		@Override public int getRuleIndex() { return RULE_defs; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDeclarations(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDefs(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDeclarations(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDefs(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDeclarations(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDefs(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DeclarationsContext declarations() throws RecognitionException {
-		DeclarationsContext _localctx = new DeclarationsContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_declarations);
+	public final DefsContext defs() throws RecognitionException {
+		DefsContext _localctx = new DefsContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_defs);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56); 
+			setState(49); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(55);
-				declaration();
+				setState(48);
+				def();
 				}
 				}
-				setState(58); 
+				setState(51); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID );
@@ -584,21 +532,20 @@ public class CraftParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\f?\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\3\2"+
-		"\3\2\3\3\3\3\3\3\3\3\5\3\35\n\3\3\4\3\4\3\4\3\4\3\4\5\4$\n\4\3\5\3\5\3"+
-		"\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b\5\b\64\n\b\3\t\3\t\3\t"+
-		"\3\t\3\n\6\n;\n\n\r\n\16\n<\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\2\29\2\24"+
-		"\3\2\2\2\4\34\3\2\2\2\6#\3\2\2\2\b%\3\2\2\2\n\'\3\2\2\2\f,\3\2\2\2\16"+
-		"\63\3\2\2\2\20\65\3\2\2\2\22:\3\2\2\2\24\25\7\13\2\2\25\26\7\3\2\2\26"+
-		"\27\7\f\2\2\27\3\3\2\2\2\30\31\5\2\2\2\31\32\5\4\3\2\32\35\3\2\2\2\33"+
-		"\35\5\2\2\2\34\30\3\2\2\2\34\33\3\2\2\2\35\5\3\2\2\2\36\37\5\4\3\2\37"+
-		" \5\b\5\2 !\5\6\4\2!$\3\2\2\2\"$\5\4\3\2#\36\3\2\2\2#\"\3\2\2\2$\7\3\2"+
-		"\2\2%&\7\4\2\2&\t\3\2\2\2\'(\7\5\2\2()\7\t\2\2)*\5\4\3\2*+\7\n\2\2+\13"+
-		"\3\2\2\2,-\7\6\2\2-.\7\t\2\2./\5\6\4\2/\60\7\n\2\2\60\r\3\2\2\2\61\64"+
-		"\5\n\6\2\62\64\5\f\7\2\63\61\3\2\2\2\63\62\3\2\2\2\64\17\3\2\2\2\65\66"+
-		"\7\13\2\2\66\67\7\7\2\2\678\5\16\b\28\21\3\2\2\29;\5\20\t\2:9\3\2\2\2"+
-		";<\3\2\2\2<:\3\2\2\2<=\3\2\2\2=\23\3\2\2\2\6\34#\63<";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\138\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\3\6\3\26"+
+		"\n\3\r\3\16\3\27\3\4\3\4\3\4\3\4\3\4\5\4\37\n\4\3\5\3\5\3\5\3\5\3\5\3"+
+		"\6\3\6\3\6\3\6\3\6\3\7\3\7\5\7-\n\7\3\b\3\b\3\b\3\b\3\t\6\t\64\n\t\r\t"+
+		"\16\t\65\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2\2\63\2\22\3\2\2\2\4\25\3\2\2"+
+		"\2\6\36\3\2\2\2\b \3\2\2\2\n%\3\2\2\2\f,\3\2\2\2\16.\3\2\2\2\20\63\3\2"+
+		"\2\2\22\23\7\n\2\2\23\3\3\2\2\2\24\26\5\2\2\2\25\24\3\2\2\2\26\27\3\2"+
+		"\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30\5\3\2\2\2\31\32\5\4\3\2\32\33\7\3"+
+		"\2\2\33\34\5\6\4\2\34\37\3\2\2\2\35\37\5\4\3\2\36\31\3\2\2\2\36\35\3\2"+
+		"\2\2\37\7\3\2\2\2 !\7\4\2\2!\"\7\b\2\2\"#\5\4\3\2#$\7\t\2\2$\t\3\2\2\2"+
+		"%&\7\5\2\2&\'\7\b\2\2\'(\5\6\4\2()\7\t\2\2)\13\3\2\2\2*-\5\b\5\2+-\5\n"+
+		"\6\2,*\3\2\2\2,+\3\2\2\2-\r\3\2\2\2./\7\n\2\2/\60\7\6\2\2\60\61\5\f\7"+
+		"\2\61\17\3\2\2\2\62\64\5\16\b\2\63\62\3\2\2\2\64\65\3\2\2\2\65\63\3\2"+
+		"\2\2\65\66\3\2\2\2\66\21\3\2\2\2\6\27\36,\65";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
