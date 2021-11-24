@@ -23,7 +23,7 @@ class BasicVisitor : CraftBaseVisitor<String>() {
         fun showID(dec: CraftParser.DefContext) = dec.ID().toString().uppercase()
         return when {
             res.list() != null -> "list ${showID(ctx)}:${visitList(res.list())}"
-            res.block() != null -> "block ${showID(ctx)}:${visitBlock(res.block())}"
+            res.grid() != null -> "grid ${showID(ctx)}:${visitGrid(res.grid())}"
             else -> TODO()
         }
     }
@@ -39,7 +39,7 @@ class BasicVisitor : CraftBaseVisitor<String>() {
         return "\n$result\n"
     }
 
-    override fun visitBlock(ctx: CraftParser.BlockContext?): String {
+    override fun visitGrid(ctx: CraftParser.GridContext?): String {
 //            println("block")
         if (ctx == null) return ""
 
@@ -55,7 +55,7 @@ class BasicVisitor : CraftBaseVisitor<String>() {
             ?: ""
 
     override fun visitRow(ctx: CraftParser.RowContext?): String =
-        ctx?.let { it.item().joinToString(prefix = ind(indent), separator = "  ") { item -> visitItem(item) } }
+        ctx?.let { it.item().joinToString("  ", ind(indent)) { item -> visitItem(item) } }
             ?: ""
 
     override fun visitItem(ctx: CraftParser.ItemContext?): String {

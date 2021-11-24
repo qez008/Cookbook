@@ -48,15 +48,15 @@ public interface CraftListener extends ParseTreeListener {
 	 */
 	void exitList(CraftParser.ListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CraftParser#block}.
+	 * Enter a parse tree produced by {@link CraftParser#grid}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlock(CraftParser.BlockContext ctx);
+	void enterGrid(CraftParser.GridContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CraftParser#block}.
+	 * Exit a parse tree produced by {@link CraftParser#grid}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlock(CraftParser.BlockContext ctx);
+	void exitGrid(CraftParser.GridContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CraftParser#recipe}.
 	 * @param ctx the parse tree

@@ -64,13 +64,13 @@ public class CraftBaseListener implements CraftListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(CraftParser.BlockContext ctx) { }
+	@Override public void enterGrid(CraftParser.GridContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(CraftParser.BlockContext ctx) { }
+	@Override public void exitGrid(CraftParser.GridContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

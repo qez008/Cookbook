@@ -19,18 +19,18 @@ public class CraftParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, WS=5, Open=6, Close=7, ID=8, Amount=9;
 	public static final int
-		RULE_item = 0, RULE_row = 1, RULE_rows = 2, RULE_list = 3, RULE_block = 4, 
+		RULE_item = 0, RULE_row = 1, RULE_rows = 2, RULE_list = 3, RULE_grid = 4, 
 		RULE_recipe = 5, RULE_def = 6, RULE_defs = 7;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"item", "row", "rows", "list", "block", "recipe", "def", "defs"
+			"item", "row", "rows", "list", "grid", "recipe", "def", "defs"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "','", "'list'", "'block'", "'='", null, "'{'", "'}'"
+			null, "','", "'list'", "'grid'", "'='", null, "'{'", "'}'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -308,34 +308,34 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class BlockContext extends ParserRuleContext {
+	public static class GridContext extends ParserRuleContext {
 		public TerminalNode Open() { return getToken(CraftParser.Open, 0); }
 		public RowsContext rows() {
 			return getRuleContext(RowsContext.class,0);
 		}
 		public TerminalNode Close() { return getToken(CraftParser.Close, 0); }
-		public BlockContext(ParserRuleContext parent, int invokingState) {
+		public GridContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_block; }
+		@Override public int getRuleIndex() { return RULE_grid; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterBlock(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterGrid(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitBlock(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitGrid(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitBlock(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitGrid(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final BlockContext block() throws RecognitionException {
-		BlockContext _localctx = new BlockContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_block);
+	public final GridContext grid() throws RecognitionException {
+		GridContext _localctx = new GridContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_grid);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -364,8 +364,8 @@ public class CraftParser extends Parser {
 		public ListContext list() {
 			return getRuleContext(ListContext.class,0);
 		}
-		public BlockContext block() {
-			return getRuleContext(BlockContext.class,0);
+		public GridContext grid() {
+			return getRuleContext(GridContext.class,0);
 		}
 		public RecipeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -404,7 +404,7 @@ public class CraftParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(41);
-				block();
+				grid();
 				}
 				break;
 			default:

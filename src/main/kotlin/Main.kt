@@ -4,12 +4,15 @@ import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 
-fun match(input: List<String>, env: Environment): String =
-    match(input.sorted(), env.lists)
-        ?: match(input, env.blocks)
-        ?: undefined
+// match input to lists
+fun matchList(input: List<String>, env: Environment): String =
+    match(input.sorted(), env.lists) ?: undefined
 
-fun <T> match(input: T, entries: Map<String, T>): String? {
+// match input to blocks
+fun matchBlock(input: List<List<String>>, env: Environment): String =
+    match(input, env.grids) ?: match(input.flatten().sorted(), env.lists) ?: undefined
+
+fun <T> match(input: Any, entries: Map<String, T>): String? {
     for ((id, res) in entries) {
         if (input == res) {
             return id
@@ -44,7 +47,36 @@ fun main() {
 
     val env = Environment(tree)
 
-    val inp = listOf("water", "bottle", "ingredient")
-    val x = match(inp, env)
+    println("ingredients:")
+    for (chunk in env.ingredients.chunked(4)) {
+        println(chunk.joinToString(prefix = "  - ", separator = "  - ") { it.padEnd(12) })
+    }
+
+    testMatchList(listOf("water", "bottle", "ingredient"), env)
+    testMatchBlock(listOf(listOf("water", "bottle", "ingredient")), env)
+    testMatchBlock(listOf(listOf("c", "b", "a")), env)
+    testMatchBlock(listOf(listOf("a", "b", "c")), env)
+
+
+    println(validInput(listOf("water", "bottle", "ingredient"), env))
+    println(validInput(listOf("water", "bottle", "ingredien"), env))
+    println("unknown ingredient(s): ${invalidIngredients(listOf("water", "bottle", "ingredien"), env)}")
+}
+
+
+fun testMatchList(inp: List<String>, env: Environment) {
+    val x = matchList(inp, env)
     println("$inp -> $x")
 }
+
+
+fun testMatchBlock(inp: List<List<String>>, env: Environment) {
+    val x = matchBlock(inp, env)
+    println("$inp -> $x")
+}
+
+
+fun validInput(inp: List<String>, env: Environment): Boolean = env.ingredients.containsAll(inp)
+
+fun invalidIngredients(inp: List<String>, env: Environment): List<String> = inp - env.ingredients
+

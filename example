@@ -1,14 +1,21 @@
 potion = list { bottle water ingredient }
-b = block { a b c }
-c = block { a b , c d }
-d = block {
+b = grid { a b c }
+c = grid { a b , c d }
+d = grid {
 	a b c ,
 	d e f ,
 	g h i
 }
 
-e = block {
+e = grid {
 	aaa b c ,
 	d _ f ,
 	_ h _
+}
+
+
+object Name {
+	val f1 = 20
+	val f2 = something
+
 }

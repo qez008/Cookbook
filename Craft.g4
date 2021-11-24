@@ -15,9 +15,9 @@ row : item+;
 rows : row ',' rows | row;
 
 list : 'list' Open row Close;
-block : 'block' Open rows Close;
+grid : 'grid' Open rows Close;
 
-recipe : list | block;
+recipe : list | grid;
 
 def : ID '=' recipe;
 

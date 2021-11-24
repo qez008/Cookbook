@@ -2,7 +2,7 @@ token literal names:
 null
 ','
 'list'
-'block'
+'grid'
 '='
 null
 '{'
@@ -27,7 +27,7 @@ item
 row
 rows
 list
-block
+grid
 recipe
 def
 defs
