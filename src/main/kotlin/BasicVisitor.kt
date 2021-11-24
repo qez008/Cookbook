@@ -32,12 +32,12 @@ class BasicVisitor : CraftBaseVisitor<String>() {
         ctx?.let { def -> "recipe [${def.ID()}]:\n${visitRecipe(def.recipe())}\n" } ?: ""
 
     override fun visitRecipe(ctx: CraftParser.RecipeContext?): String =
-        ctx?.let { res -> visitList(res.list()) + visitGrid(res.grid()) } ?: ""
+        ctx?.let { res -> visitList(res.list()) + visitTable(res.table()) } ?: ""
 
-    override fun visitGrid(ctx: CraftParser.GridContext?): String =
-        ctx?.let { grid ->
-            var result = "  grid:\n"
-            for (row in grid.row()) {
+    override fun visitTable(ctx: CraftParser.TableContext?): String =
+        ctx?.let { table ->
+            var result = "  table:\n"
+            for (row in table.row()) {
                 result += "    ${visitRow(row)}\n"
             }
             result

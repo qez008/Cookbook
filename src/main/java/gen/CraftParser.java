@@ -21,11 +21,11 @@ public class CraftParser extends Parser {
 		ID=10, Blank=11, Num=12, Str=13, TypeSeparator=14;
 	public static final int
 		RULE_materials = 0, RULE_def = 1, RULE_materialTypes = 2, RULE_recipe = 3, 
-		RULE_list = 4, RULE_grid = 5, RULE_row = 6, RULE_entry = 7, RULE_type = 8, 
+		RULE_list = 4, RULE_table = 5, RULE_row = 6, RULE_entry = 7, RULE_type = 8, 
 		RULE_types = 9, RULE_program = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"materials", "def", "materialTypes", "recipe", "list", "grid", "row", 
+			"materials", "def", "materialTypes", "recipe", "list", "table", "row", 
 			"entry", "type", "types", "program"
 		};
 	}
@@ -33,8 +33,8 @@ public class CraftParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'materials'", "'item'", "'mats'", "':'", "'list'", "'grid'", null, 
-			"','", "'end'", null, "'_'", null, null, "'/'"
+			null, "'materials'", "'item'", "'mats'", "':'", "'list'", "'table'", 
+			null, "','", "'end'", null, "'_'", null, null, "'/'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -292,8 +292,8 @@ public class CraftParser extends Parser {
 		public ListContext list() {
 			return getRuleContext(ListContext.class,0);
 		}
-		public GridContext grid() {
-			return getRuleContext(GridContext.class,0);
+		public TableContext table() {
+			return getRuleContext(TableContext.class,0);
 		}
 		public RecipeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -332,7 +332,7 @@ public class CraftParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(47);
-				grid();
+				table();
 				}
 				break;
 			default:
@@ -399,7 +399,7 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class GridContext extends ParserRuleContext {
+	public static class TableContext extends ParserRuleContext {
 		public TerminalNode End() { return getToken(CraftParser.End, 0); }
 		public List<RowContext> row() {
 			return getRuleContexts(RowContext.class);
@@ -411,28 +411,28 @@ public class CraftParser extends Parser {
 		public TerminalNode EndRow(int i) {
 			return getToken(CraftParser.EndRow, i);
 		}
-		public GridContext(ParserRuleContext parent, int invokingState) {
+		public TableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_grid; }
+		@Override public int getRuleIndex() { return RULE_table; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterGrid(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterTable(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitGrid(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitTable(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitGrid(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitTable(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final GridContext grid() throws RecognitionException {
-		GridContext _localctx = new GridContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_grid);
+	public final TableContext table() throws RecognitionException {
+		TableContext _localctx = new TableContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_table);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

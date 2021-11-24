@@ -5,7 +5,7 @@ null
 'mats'
 ':'
 'list'
-'grid'
+'table'
 null
 ','
 'end'
@@ -38,7 +38,7 @@ def
 materialTypes
 recipe
 list
-grid
+table
 row
 entry
 type

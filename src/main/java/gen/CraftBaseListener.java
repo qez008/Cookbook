@@ -76,13 +76,13 @@ public class CraftBaseListener implements CraftListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGrid(CraftParser.GridContext ctx) { }
+	@Override public void enterTable(CraftParser.TableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGrid(CraftParser.GridContext ctx) { }
+	@Override public void exitTable(CraftParser.TableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

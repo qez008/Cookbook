@@ -41,11 +41,11 @@ public interface CraftVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitList(CraftParser.ListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#grid}.
+	 * Visit a parse tree produced by {@link CraftParser#table}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGrid(CraftParser.GridContext ctx);
+	T visitTable(CraftParser.TableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CraftParser#row}.
 	 * @param ctx the parse tree

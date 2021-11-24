@@ -22,9 +22,9 @@ def : 'item' ID materialTypes recipe End;
 
 materialTypes : 'mats' (ID ':' types)+ End;
 // recipies defines how items are created
-recipe : list | grid;
+recipe : list | table;
 list : 'list' row End;
-grid : 'grid' (row | (row EndRow)+) End;
+table : 'table' (row | (row EndRow)+) End;
 
 row : entry+;
 entry : (Blank | ID | (ID ':' types));

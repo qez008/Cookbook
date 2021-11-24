@@ -52,7 +52,7 @@ public class CraftBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGrid(CraftParser.GridContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTable(CraftParser.TableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,11 +1,11 @@
 item Bucket
 	mats
-		m : wood/iron
+		t : wood/iron
 	end
-	grid
-		m _ m ,
-		m _ m ,
-		_ m _ ,
+	table
+		t _ t ,
+		t _ t ,
+		_ t _ ,
 	end
 end
 
@@ -13,7 +13,7 @@ item Sword
 	mats
 		blade : wood/stone/iron/gold/diamond
 	end
-	grid
+	table
 		blade ,
 		blade ,
 		hilt ,
@@ -25,7 +25,7 @@ item Axe
 		blade : wood/stone/iron/gold/diamond
 		quality : dull/sharp
 	end
-	grid
+	table
 		quality ,
 		blade ,
 		handle ,

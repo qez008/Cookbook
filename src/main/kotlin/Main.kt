@@ -35,7 +35,7 @@ fun craft(input: List<List<String>>, def: CraftParser.DefContext): String {
         typeOptions[id.text] = types.type().map { it.ID().text }.toSet()
     }
 
-    val res = def.recipe().grid().row().map { r -> r.entry().map { e -> e.text } }
+    val res = def.recipe().table().row().map { r -> r.entry().map { e -> e.text } }
 
     for ((expectedRow, actualRow) in res zip input) {
         for ((expected, actual) in expectedRow zip actualRow) {
