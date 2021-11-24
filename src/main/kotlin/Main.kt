@@ -14,12 +14,6 @@ fun program(stream: CharStream): CraftParser.ProgramContext {
     return parser.program()
 }
 
-fun main() {
-
-    val input = CharStreams.fromFileName("example")
-    val progam = program(input)
-}
-
 fun craft(input: List<List<String>>, program: CraftParser.ProgramContext): String {
     for (def in program.def()) {
         val item = craft(input, def)
@@ -68,4 +62,10 @@ fun craft(input: List<List<String>>, def: CraftParser.DefContext): String {
     val itemType = lookupType.values
     val itemID = def.ID()
     return "$itemType $itemID"
+}
+
+fun main() {
+
+    val input = CharStreams.fromFileName("example")
+    val progam = program(input)
 }
