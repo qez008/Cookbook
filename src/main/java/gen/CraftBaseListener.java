@@ -16,37 +16,49 @@ public class CraftBaseListener implements CraftListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterItem(CraftParser.ItemContext ctx) { }
+	@Override public void enterMaterials(CraftParser.MaterialsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitItem(CraftParser.ItemContext ctx) { }
+	@Override public void exitMaterials(CraftParser.MaterialsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRow(CraftParser.RowContext ctx) { }
+	@Override public void enterDef(CraftParser.DefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRow(CraftParser.RowContext ctx) { }
+	@Override public void exitDef(CraftParser.DefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRows(CraftParser.RowsContext ctx) { }
+	@Override public void enterMaterialTypes(CraftParser.MaterialTypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRows(CraftParser.RowsContext ctx) { }
+	@Override public void exitMaterialTypes(CraftParser.MaterialTypesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRecipe(CraftParser.RecipeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRecipe(CraftParser.RecipeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -76,37 +88,61 @@ public class CraftBaseListener implements CraftListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRecipe(CraftParser.RecipeContext ctx) { }
+	@Override public void enterRow(CraftParser.RowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRecipe(CraftParser.RecipeContext ctx) { }
+	@Override public void exitRow(CraftParser.RowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDef(CraftParser.DefContext ctx) { }
+	@Override public void enterEntry(CraftParser.EntryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDef(CraftParser.DefContext ctx) { }
+	@Override public void exitEntry(CraftParser.EntryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDefs(CraftParser.DefsContext ctx) { }
+	@Override public void enterType(CraftParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDefs(CraftParser.DefsContext ctx) { }
+	@Override public void exitType(CraftParser.TypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypes(CraftParser.TypesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypes(CraftParser.TypesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProgram(CraftParser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProgram(CraftParser.ProgramContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

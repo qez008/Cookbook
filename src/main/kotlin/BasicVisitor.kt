@@ -3,65 +3,65 @@ import gen.CraftParser
 
 class BasicVisitor : CraftBaseVisitor<String>() {
 
-    var indent = 0
-    fun ind(i: Int) = "  ".repeat(i)
+    override fun visitProgram(prog: CraftParser.ProgramContext?): String =
+        prog?.let {
+            var result = ""
+            for (mats in prog.materials()) {
+                result += visitMaterials(mats)
+            }
 
-    override fun visitDefs(ctx: CraftParser.DefsContext?): String {
-        if (ctx == null) return ""
-
-        var result = ""
-        for (def in ctx.def()) {
-            result += "${visitDef(def)} \n"
+            for (def in prog.def()) {
+                result += visitDef(def)
+            }
+            result
         }
-        return result
-    }
+            ?: ""
 
-    override fun visitDef(ctx: CraftParser.DefContext?): String {
-        if (ctx == null) return ""
-
-        val res = ctx.recipe()
-        fun showID(dec: CraftParser.DefContext) = dec.ID().toString().uppercase()
-        return when {
-            res.list() != null -> "list ${showID(ctx)}:${visitList(res.list())}"
-            res.grid() != null -> "grid ${showID(ctx)}:${visitGrid(res.grid())}"
-            else -> TODO()
+    override fun visitMaterials(mats: CraftParser.MaterialsContext?): String =
+        mats?.let {
+            var result = "materials:\n"
+            val separator = "  - "
+            for (ids in mats.ID().chunked(3)) {
+                result += ids.joinToString(separator, separator, "\n") { "$it".padEnd(12) }
+            }
+            "$result\n"
         }
-    }
+            ?: ""
 
+    override fun visitDef(ctx: CraftParser.DefContext?): String =
+        ctx?.let { def -> "recipe [${def.ID()}]:\n${visitRecipe(def.recipe())}\n" } ?: ""
 
-    override fun visitList(ctx: CraftParser.ListContext?): String {
-//            println("list")
-        if (ctx == null) return ""
+    override fun visitRecipe(ctx: CraftParser.RecipeContext?): String =
+        ctx?.let { res -> visitList(res.list()) + visitGrid(res.grid()) } ?: ""
 
-        indent++
-        val result = visitRow(ctx.row())
-        indent--
-        return "\n$result\n"
-    }
+    override fun visitGrid(ctx: CraftParser.GridContext?): String =
+        ctx?.let { grid ->
+            var result = "  grid:\n"
+            for (row in grid.row()) {
+                result += "    ${visitRow(row)}\n"
+            }
+            result
+        }
+            ?: ""
 
-    override fun visitGrid(ctx: CraftParser.GridContext?): String {
-//            println("block")
-        if (ctx == null) return ""
-
-        indent++
-        val result = visitRows(ctx.rows())
-        indent--
-        return "\n$result"
-    }
-
-
-    override fun visitRows(ctx: CraftParser.RowsContext?): String =
-        ctx?.let { rows -> visitRow(rows.row()) + "\n" + visitRows(rows.rows()) }
+    override fun visitList(ctx: CraftParser.ListContext?): String =
+        ctx?.let { list ->
+            "  list [ ${visitRow(list.row())} ]\n"
+        }
             ?: ""
 
     override fun visitRow(ctx: CraftParser.RowContext?): String =
-        ctx?.let { it.item().joinToString("  ", ind(indent)) { item -> visitItem(item) } }
+        ctx?.let { row ->
+            row.entry().joinToString(" ") { visitEntry(it) }
+        }
             ?: ""
 
-    override fun visitItem(ctx: CraftParser.ItemContext?): String {
-        if (ctx == null) return ""
-        return ctx.ID().text
-//        return "${ctx.ID()}(${ctx.Amount()})"
-    }
+    override fun visitEntry(ctx: CraftParser.EntryContext?): String =
+        ctx?.text ?: ""
 
+    override fun visitTypes(ctx: CraftParser.TypesContext?): String =
+        ctx?.let { types ->
+            types.type().joinToString("/", "(", ")") { it.text }
+        }
+            ?: ""
 }

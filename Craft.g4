@@ -3,22 +3,35 @@ grammar Craft;
 
 WS : [ \t\n]+ -> skip ;
 
-Open : '{';
-Close : '}';
+EndRow : ',';
+End : 'end';
 
-ID : '_' | [a-zA-Z]+;
-Amount :  [0-9]+;
+ID : [a-zA-Z] [a-zA-Z0-9]*;
+Blank : '_';
 
-item : ID; // ':' Amount;
+Num : '0' | [1-9][0-9]*;
+Str : '\'' .+? '\'';
 
-row : item+;
-rows : row ',' rows | row;
+TypeSeparator : '/';
 
-list : 'list' Open row Close;
-grid : 'grid' Open rows Close;
 
+materials : 'materials' ID+ End;
+
+def : 'item' ID materialTypes recipe End;
+
+
+materialTypes : 'mats' (ID ':' types)+ End;
+// recipies defines how items are created
 recipe : list | grid;
+list : 'list' row End;
+grid : 'grid' (row | (row EndRow)+) End;
 
-def : ID '=' recipe;
+row : entry+;
+entry : (Blank | ID | (ID ':' types));
 
-defs : def+;
+type : ID;
+types : type | ((type TypeSeparator)+ type);
+
+
+
+program : (materials | def)+;

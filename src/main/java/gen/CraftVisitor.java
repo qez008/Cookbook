@@ -11,23 +11,29 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CraftVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#item}.
+	 * Visit a parse tree produced by {@link CraftParser#materials}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitItem(CraftParser.ItemContext ctx);
+	T visitMaterials(CraftParser.MaterialsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#row}.
+	 * Visit a parse tree produced by {@link CraftParser#def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRow(CraftParser.RowContext ctx);
+	T visitDef(CraftParser.DefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#rows}.
+	 * Visit a parse tree produced by {@link CraftParser#materialTypes}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRows(CraftParser.RowsContext ctx);
+	T visitMaterialTypes(CraftParser.MaterialTypesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CraftParser#recipe}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRecipe(CraftParser.RecipeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CraftParser#list}.
 	 * @param ctx the parse tree
@@ -41,21 +47,33 @@ public interface CraftVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGrid(CraftParser.GridContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#recipe}.
+	 * Visit a parse tree produced by {@link CraftParser#row}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRecipe(CraftParser.RecipeContext ctx);
+	T visitRow(CraftParser.RowContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#def}.
+	 * Visit a parse tree produced by {@link CraftParser#entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDef(CraftParser.DefContext ctx);
+	T visitEntry(CraftParser.EntryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CraftParser#defs}.
+	 * Visit a parse tree produced by {@link CraftParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDefs(CraftParser.DefsContext ctx);
+	T visitType(CraftParser.TypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CraftParser#types}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypes(CraftParser.TypesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CraftParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(CraftParser.ProgramContext ctx);
 }

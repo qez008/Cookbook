@@ -17,26 +17,31 @@ public class CraftParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, WS=5, Open=6, Close=7, ID=8, Amount=9;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, WS=7, EndRow=8, End=9, 
+		ID=10, Blank=11, Num=12, Str=13, TypeSeparator=14;
 	public static final int
-		RULE_item = 0, RULE_row = 1, RULE_rows = 2, RULE_list = 3, RULE_grid = 4, 
-		RULE_recipe = 5, RULE_def = 6, RULE_defs = 7;
+		RULE_materials = 0, RULE_def = 1, RULE_materialTypes = 2, RULE_recipe = 3, 
+		RULE_list = 4, RULE_grid = 5, RULE_row = 6, RULE_entry = 7, RULE_type = 8, 
+		RULE_types = 9, RULE_program = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"item", "row", "rows", "list", "grid", "recipe", "def", "defs"
+			"materials", "def", "materialTypes", "recipe", "list", "grid", "row", 
+			"entry", "type", "types", "program"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "','", "'list'", "'grid'", "'='", null, "'{'", "'}'"
+			null, "'materials'", "'item'", "'mats'", "':'", "'list'", "'grid'", null, 
+			"','", "'end'", null, "'_'", null, null, "'/'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "WS", "Open", "Close", "ID", "Amount"
+			null, null, null, null, null, null, null, "WS", "EndRow", "End", "ID", 
+			"Blank", "Num", "Str", "TypeSeparator"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -90,159 +95,56 @@ public class CraftParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public static class ItemContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
-		public ItemContext(ParserRuleContext parent, int invokingState) {
+	public static class MaterialsContext extends ParserRuleContext {
+		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public List<TerminalNode> ID() { return getTokens(CraftParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(CraftParser.ID, i);
+		}
+		public MaterialsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_item; }
+		@Override public int getRuleIndex() { return RULE_materials; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterItem(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterMaterials(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitItem(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitMaterials(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitItem(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitMaterials(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ItemContext item() throws RecognitionException {
-		ItemContext _localctx = new ItemContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_item);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(16);
-			match(ID);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class RowContext extends ParserRuleContext {
-		public List<ItemContext> item() {
-			return getRuleContexts(ItemContext.class);
-		}
-		public ItemContext item(int i) {
-			return getRuleContext(ItemContext.class,i);
-		}
-		public RowContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_row; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterRow(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitRow(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitRow(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final RowContext row() throws RecognitionException {
-		RowContext _localctx = new RowContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_row);
+	public final MaterialsContext materials() throws RecognitionException {
+		MaterialsContext _localctx = new MaterialsContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_materials);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(19); 
+			setState(22);
+			match(T__0);
+			setState(24); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(18);
-				item();
+				setState(23);
+				match(ID);
 				}
 				}
-				setState(21); 
+				setState(26); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID );
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class RowsContext extends ParserRuleContext {
-		public RowContext row() {
-			return getRuleContext(RowContext.class,0);
-		}
-		public RowsContext rows() {
-			return getRuleContext(RowsContext.class,0);
-		}
-		public RowsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_rows; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterRows(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitRows(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitRows(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final RowsContext rows() throws RecognitionException {
-		RowsContext _localctx = new RowsContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_rows);
-		try {
 			setState(28);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(23);
-				row();
-				setState(24);
-				match(T__0);
-				setState(25);
-				rows();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(27);
-				row();
-				}
-				break;
+			match(End);
 			}
 		}
 		catch (RecognitionException re) {
@@ -256,45 +158,50 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ListContext extends ParserRuleContext {
-		public TerminalNode Open() { return getToken(CraftParser.Open, 0); }
-		public RowContext row() {
-			return getRuleContext(RowContext.class,0);
+	public static class DefContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
+		public MaterialTypesContext materialTypes() {
+			return getRuleContext(MaterialTypesContext.class,0);
 		}
-		public TerminalNode Close() { return getToken(CraftParser.Close, 0); }
-		public ListContext(ParserRuleContext parent, int invokingState) {
+		public RecipeContext recipe() {
+			return getRuleContext(RecipeContext.class,0);
+		}
+		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public DefContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_list; }
+		@Override public int getRuleIndex() { return RULE_def; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterList(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDef(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitList(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDef(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitList(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDef(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ListContext list() throws RecognitionException {
-		ListContext _localctx = new ListContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_list);
+	public final DefContext def() throws RecognitionException {
+		DefContext _localctx = new DefContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_def);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(30);
 			match(T__1);
 			setState(31);
-			match(Open);
+			match(ID);
 			setState(32);
-			row();
+			materialTypes();
 			setState(33);
-			match(Close);
+			recipe();
+			setState(34);
+			match(End);
 			}
 		}
 		catch (RecognitionException re) {
@@ -308,45 +215,66 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class GridContext extends ParserRuleContext {
-		public TerminalNode Open() { return getToken(CraftParser.Open, 0); }
-		public RowsContext rows() {
-			return getRuleContext(RowsContext.class,0);
+	public static class MaterialTypesContext extends ParserRuleContext {
+		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public List<TerminalNode> ID() { return getTokens(CraftParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(CraftParser.ID, i);
 		}
-		public TerminalNode Close() { return getToken(CraftParser.Close, 0); }
-		public GridContext(ParserRuleContext parent, int invokingState) {
+		public List<TypesContext> types() {
+			return getRuleContexts(TypesContext.class);
+		}
+		public TypesContext types(int i) {
+			return getRuleContext(TypesContext.class,i);
+		}
+		public MaterialTypesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_grid; }
+		@Override public int getRuleIndex() { return RULE_materialTypes; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterGrid(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterMaterialTypes(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitGrid(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitMaterialTypes(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitGrid(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitMaterialTypes(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final GridContext grid() throws RecognitionException {
-		GridContext _localctx = new GridContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_grid);
+	public final MaterialTypesContext materialTypes() throws RecognitionException {
+		MaterialTypesContext _localctx = new MaterialTypesContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_materialTypes);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(35);
-			match(T__2);
 			setState(36);
-			match(Open);
-			setState(37);
-			rows();
-			setState(38);
-			match(Close);
+			match(T__2);
+			setState(40); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(37);
+				match(ID);
+				setState(38);
+				match(T__3);
+				setState(39);
+				types();
+				}
+				}
+				setState(42); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==ID );
+			setState(44);
+			match(End);
 			}
 		}
 		catch (RecognitionException re) {
@@ -388,22 +316,22 @@ public class CraftParser extends Parser {
 
 	public final RecipeContext recipe() throws RecognitionException {
 		RecipeContext _localctx = new RecipeContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_recipe);
+		enterRule(_localctx, 6, RULE_recipe);
 		try {
-			setState(42);
+			setState(48);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__1:
+			case T__4:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40);
+				setState(46);
 				list();
 				}
 				break;
-			case T__2:
+			case T__5:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(41);
+				setState(47);
 				grid();
 				}
 				break;
@@ -422,42 +350,42 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class DefContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
-		public RecipeContext recipe() {
-			return getRuleContext(RecipeContext.class,0);
+	public static class ListContext extends ParserRuleContext {
+		public RowContext row() {
+			return getRuleContext(RowContext.class,0);
 		}
-		public DefContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public ListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_def; }
+		@Override public int getRuleIndex() { return RULE_list; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDef(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterList(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDef(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitList(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDef(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitList(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DefContext def() throws RecognitionException {
-		DefContext _localctx = new DefContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_def);
+	public final ListContext list() throws RecognitionException {
+		ListContext _localctx = new ListContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_list);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
-			match(ID);
-			setState(45);
-			match(T__3);
-			setState(46);
-			recipe();
+			setState(50);
+			match(T__4);
+			setState(51);
+			row();
+			setState(52);
+			match(End);
 			}
 		}
 		catch (RecognitionException re) {
@@ -471,53 +399,421 @@ public class CraftParser extends Parser {
 		return _localctx;
 	}
 
-	public static class DefsContext extends ParserRuleContext {
+	public static class GridContext extends ParserRuleContext {
+		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public List<RowContext> row() {
+			return getRuleContexts(RowContext.class);
+		}
+		public RowContext row(int i) {
+			return getRuleContext(RowContext.class,i);
+		}
+		public List<TerminalNode> EndRow() { return getTokens(CraftParser.EndRow); }
+		public TerminalNode EndRow(int i) {
+			return getToken(CraftParser.EndRow, i);
+		}
+		public GridContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_grid; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterGrid(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitGrid(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitGrid(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final GridContext grid() throws RecognitionException {
+		GridContext _localctx = new GridContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_grid);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(54);
+			match(T__5);
+			setState(63);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
+				{
+				setState(55);
+				row();
+				}
+				break;
+			case 2:
+				{
+				setState(59); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				do {
+					{
+					{
+					setState(56);
+					row();
+					setState(57);
+					match(EndRow);
+					}
+					}
+					setState(61); 
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				} while ( _la==ID || _la==Blank );
+				}
+				break;
+			}
+			setState(65);
+			match(End);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class RowContext extends ParserRuleContext {
+		public List<EntryContext> entry() {
+			return getRuleContexts(EntryContext.class);
+		}
+		public EntryContext entry(int i) {
+			return getRuleContext(EntryContext.class,i);
+		}
+		public RowContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_row; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterRow(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitRow(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitRow(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RowContext row() throws RecognitionException {
+		RowContext _localctx = new RowContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_row);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(68); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(67);
+				entry();
+				}
+				}
+				setState(70); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==ID || _la==Blank );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class EntryContext extends ParserRuleContext {
+		public TerminalNode Blank() { return getToken(CraftParser.Blank, 0); }
+		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
+		public TypesContext types() {
+			return getRuleContext(TypesContext.class,0);
+		}
+		public EntryContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_entry; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterEntry(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitEntry(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitEntry(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EntryContext entry() throws RecognitionException {
+		EntryContext _localctx = new EntryContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_entry);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(77);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			case 1:
+				{
+				setState(72);
+				match(Blank);
+				}
+				break;
+			case 2:
+				{
+				setState(73);
+				match(ID);
+				}
+				break;
+			case 3:
+				{
+				{
+				setState(74);
+				match(ID);
+				setState(75);
+				match(T__3);
+				setState(76);
+				types();
+				}
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class TypeContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
+		public TypeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_type; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterType(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TypeContext type() throws RecognitionException {
+		TypeContext _localctx = new TypeContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_type);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(79);
+			match(ID);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class TypesContext extends ParserRuleContext {
+		public List<TypeContext> type() {
+			return getRuleContexts(TypeContext.class);
+		}
+		public TypeContext type(int i) {
+			return getRuleContext(TypeContext.class,i);
+		}
+		public List<TerminalNode> TypeSeparator() { return getTokens(CraftParser.TypeSeparator); }
+		public TerminalNode TypeSeparator(int i) {
+			return getToken(CraftParser.TypeSeparator, i);
+		}
+		public TypesContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_types; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterTypes(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitTypes(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitTypes(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TypesContext types() throws RecognitionException {
+		TypesContext _localctx = new TypesContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_types);
+		try {
+			int _alt;
+			setState(91);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(81);
+				type();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				{
+				setState(85); 
+				_errHandler.sync(this);
+				_alt = 1;
+				do {
+					switch (_alt) {
+					case 1:
+						{
+						{
+						setState(82);
+						type();
+						setState(83);
+						match(TypeSeparator);
+						}
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
+					}
+					setState(87); 
+					_errHandler.sync(this);
+					_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
+				setState(89);
+				type();
+				}
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ProgramContext extends ParserRuleContext {
+		public List<MaterialsContext> materials() {
+			return getRuleContexts(MaterialsContext.class);
+		}
+		public MaterialsContext materials(int i) {
+			return getRuleContext(MaterialsContext.class,i);
+		}
 		public List<DefContext> def() {
 			return getRuleContexts(DefContext.class);
 		}
 		public DefContext def(int i) {
 			return getRuleContext(DefContext.class,i);
 		}
-		public DefsContext(ParserRuleContext parent, int invokingState) {
+		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_defs; }
+		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDefs(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDefs(this);
+			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitProgram(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDefs(this);
+			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitProgram(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DefsContext defs() throws RecognitionException {
-		DefsContext _localctx = new DefsContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_defs);
+	public final ProgramContext program() throws RecognitionException {
+		ProgramContext _localctx = new ProgramContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_program);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49); 
+			setState(95); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				{
-				setState(48);
-				def();
+				setState(95);
+				_errHandler.sync(this);
+				switch (_input.LA(1)) {
+				case T__0:
+					{
+					setState(93);
+					materials();
+					}
+					break;
+				case T__1:
+					{
+					setState(94);
+					def();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
 				}
 				}
-				setState(51); 
+				setState(97); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==ID );
+			} while ( _la==T__0 || _la==T__1 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -532,20 +828,31 @@ public class CraftParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\138\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\3\6\3\26"+
-		"\n\3\r\3\16\3\27\3\4\3\4\3\4\3\4\3\4\5\4\37\n\4\3\5\3\5\3\5\3\5\3\5\3"+
-		"\6\3\6\3\6\3\6\3\6\3\7\3\7\5\7-\n\7\3\b\3\b\3\b\3\b\3\t\6\t\64\n\t\r\t"+
-		"\16\t\65\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2\2\63\2\22\3\2\2\2\4\25\3\2\2"+
-		"\2\6\36\3\2\2\2\b \3\2\2\2\n%\3\2\2\2\f,\3\2\2\2\16.\3\2\2\2\20\63\3\2"+
-		"\2\2\22\23\7\n\2\2\23\3\3\2\2\2\24\26\5\2\2\2\25\24\3\2\2\2\26\27\3\2"+
-		"\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30\5\3\2\2\2\31\32\5\4\3\2\32\33\7\3"+
-		"\2\2\33\34\5\6\4\2\34\37\3\2\2\2\35\37\5\4\3\2\36\31\3\2\2\2\36\35\3\2"+
-		"\2\2\37\7\3\2\2\2 !\7\4\2\2!\"\7\b\2\2\"#\5\4\3\2#$\7\t\2\2$\t\3\2\2\2"+
-		"%&\7\5\2\2&\'\7\b\2\2\'(\5\6\4\2()\7\t\2\2)\13\3\2\2\2*-\5\b\5\2+-\5\n"+
-		"\6\2,*\3\2\2\2,+\3\2\2\2-\r\3\2\2\2./\7\n\2\2/\60\7\6\2\2\60\61\5\f\7"+
-		"\2\61\17\3\2\2\2\62\64\5\16\b\2\63\62\3\2\2\2\64\65\3\2\2\2\65\63\3\2"+
-		"\2\2\65\66\3\2\2\2\66\21\3\2\2\2\6\27\36,\65";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20f\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\3\2\3\2\6\2\33\n\2\r\2\16\2\34\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\4\3\4\3\4\3\4\6\4+\n\4\r\4\16\4,\3\4\3\4\3\5\3\5\5\5\63\n\5\3\6\3\6"+
+		"\3\6\3\6\3\7\3\7\3\7\3\7\3\7\6\7>\n\7\r\7\16\7?\5\7B\n\7\3\7\3\7\3\b\6"+
+		"\bG\n\b\r\b\16\bH\3\t\3\t\3\t\3\t\3\t\5\tP\n\t\3\n\3\n\3\13\3\13\3\13"+
+		"\3\13\6\13X\n\13\r\13\16\13Y\3\13\3\13\5\13^\n\13\3\f\3\f\6\fb\n\f\r\f"+
+		"\16\fc\3\f\2\2\r\2\4\6\b\n\f\16\20\22\24\26\2\2\2f\2\30\3\2\2\2\4 \3\2"+
+		"\2\2\6&\3\2\2\2\b\62\3\2\2\2\n\64\3\2\2\2\f8\3\2\2\2\16F\3\2\2\2\20O\3"+
+		"\2\2\2\22Q\3\2\2\2\24]\3\2\2\2\26a\3\2\2\2\30\32\7\3\2\2\31\33\7\f\2\2"+
+		"\32\31\3\2\2\2\33\34\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\36\3\2\2\2"+
+		"\36\37\7\13\2\2\37\3\3\2\2\2 !\7\4\2\2!\"\7\f\2\2\"#\5\6\4\2#$\5\b\5\2"+
+		"$%\7\13\2\2%\5\3\2\2\2&*\7\5\2\2\'(\7\f\2\2()\7\6\2\2)+\5\24\13\2*\'\3"+
+		"\2\2\2+,\3\2\2\2,*\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\13\2\2/\7\3\2\2\2\60"+
+		"\63\5\n\6\2\61\63\5\f\7\2\62\60\3\2\2\2\62\61\3\2\2\2\63\t\3\2\2\2\64"+
+		"\65\7\7\2\2\65\66\5\16\b\2\66\67\7\13\2\2\67\13\3\2\2\28A\7\b\2\29B\5"+
+		"\16\b\2:;\5\16\b\2;<\7\n\2\2<>\3\2\2\2=:\3\2\2\2>?\3\2\2\2?=\3\2\2\2?"+
+		"@\3\2\2\2@B\3\2\2\2A9\3\2\2\2A=\3\2\2\2BC\3\2\2\2CD\7\13\2\2D\r\3\2\2"+
+		"\2EG\5\20\t\2FE\3\2\2\2GH\3\2\2\2HF\3\2\2\2HI\3\2\2\2I\17\3\2\2\2JP\7"+
+		"\r\2\2KP\7\f\2\2LM\7\f\2\2MN\7\6\2\2NP\5\24\13\2OJ\3\2\2\2OK\3\2\2\2O"+
+		"L\3\2\2\2P\21\3\2\2\2QR\7\f\2\2R\23\3\2\2\2S^\5\22\n\2TU\5\22\n\2UV\7"+
+		"\20\2\2VX\3\2\2\2WT\3\2\2\2XY\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z[\3\2\2\2[\\"+
+		"\5\22\n\2\\^\3\2\2\2]S\3\2\2\2]W\3\2\2\2^\25\3\2\2\2_b\5\2\2\2`b\5\4\3"+
+		"\2a_\3\2\2\2a`\3\2\2\2bc\3\2\2\2ca\3\2\2\2cd\3\2\2\2d\27\3\2\2\2\r\34"+
+		",\62?AHOY]ac";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

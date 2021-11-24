@@ -1,21 +1,34 @@
-potion = list { bottle water ingredient }
-b = grid { a b c }
-c = grid { a b , c d }
-d = grid {
-	a b c ,
-	d e f ,
-	g h i
-}
+item Bucket
+	mats
+		m : wood/iron
+	end
+	grid
+		m _ m ,
+		m _ m ,
+		_ m _ ,
+	end
+end
 
-e = grid {
-	aaa b c ,
-	d _ f ,
-	_ h _
-}
+item Sword
+	mats
+		blade : wood/stone/iron/gold/diamond
+	end
+	grid
+		blade ,
+		blade ,
+		hilt ,
+	end
+end
 
-
-object Name {
-	val f1 = 20
-	val f2 = something
-
-}
+item Axe
+	mats
+		blade : wood/stone/iron/gold/diamond
+		quality : dull/sharp
+	end
+	grid
+		quality ,
+		blade ,
+		handle ,
+		handle ,
+	end
+end
