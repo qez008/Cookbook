@@ -17,7 +17,7 @@ TypeSeparator : '/';
 
 materials : 'materials' ID+ End;
 
-def : 'item' ID materialTypes recipe End;
+def : 'item' ID materialTypes? recipe End;
 
 
 materialTypes : 'mats' (ID ':' types)+ End;

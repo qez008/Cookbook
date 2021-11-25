@@ -28,7 +28,6 @@ class CraftingTests {
             row("iron", "_", "iron")
             row("_", "wood", "_")
         }
-
         val bucketD = table {
             row("gold", "_", "iron")
             row("iron", "_", "iron")

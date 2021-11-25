@@ -1,3 +1,15 @@
+item Book
+	list paper paper paper end
+end
+
+item Chair
+	table
+		x _ _ ,
+		x x x ,
+		l _ l ,
+	end
+end
+
 item Bucket
 	mats
 		t : wood/iron

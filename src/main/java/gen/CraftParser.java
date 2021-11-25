@@ -160,13 +160,13 @@ public class CraftParser extends Parser {
 
 	public static class DefContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
-		public MaterialTypesContext materialTypes() {
-			return getRuleContext(MaterialTypesContext.class,0);
-		}
 		public RecipeContext recipe() {
 			return getRuleContext(RecipeContext.class,0);
 		}
 		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public MaterialTypesContext materialTypes() {
+			return getRuleContext(MaterialTypesContext.class,0);
+		}
 		public DefContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -189,6 +189,7 @@ public class CraftParser extends Parser {
 	public final DefContext def() throws RecognitionException {
 		DefContext _localctx = new DefContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_def);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -196,11 +197,19 @@ public class CraftParser extends Parser {
 			match(T__1);
 			setState(31);
 			match(ID);
-			setState(32);
-			materialTypes();
 			setState(33);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==T__2) {
+				{
+				setState(32);
+				materialTypes();
+				}
+			}
+
+			setState(35);
 			recipe();
-			setState(34);
+			setState(36);
 			match(End);
 			}
 		}
@@ -253,27 +262,27 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
+			setState(38);
 			match(T__2);
-			setState(40); 
+			setState(42); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(37);
-				match(ID);
-				setState(38);
-				match(T__3);
 				setState(39);
+				match(ID);
+				setState(40);
+				match(T__3);
+				setState(41);
 				types();
 				}
 				}
-				setState(42); 
+				setState(44); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID );
-			setState(44);
+			setState(46);
 			match(End);
 			}
 		}
@@ -318,20 +327,20 @@ public class CraftParser extends Parser {
 		RecipeContext _localctx = new RecipeContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_recipe);
 		try {
-			setState(48);
+			setState(50);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__4:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(46);
+				setState(48);
 				list();
 				}
 				break;
 			case T__5:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(47);
+				setState(49);
 				table();
 				}
 				break;
@@ -380,11 +389,11 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(50);
-			match(T__4);
-			setState(51);
-			row();
 			setState(52);
+			match(T__4);
+			setState(53);
+			row();
+			setState(54);
 			match(End);
 			}
 		}
@@ -437,39 +446,39 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(54);
+			setState(56);
 			match(T__5);
-			setState(63);
+			setState(65);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				{
-				setState(55);
+				setState(57);
 				row();
 				}
 				break;
 			case 2:
 				{
-				setState(59); 
+				setState(61); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
 					{
-					setState(56);
+					setState(58);
 					row();
-					setState(57);
+					setState(59);
 					match(EndRow);
 					}
 					}
-					setState(61); 
+					setState(63); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==ID || _la==Blank );
 				}
 				break;
 			}
-			setState(65);
+			setState(67);
 			match(End);
 			}
 		}
@@ -517,17 +526,17 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68); 
+			setState(70); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(67);
+				setState(69);
 				entry();
 				}
 				}
-				setState(70); 
+				setState(72); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID || _la==Blank );
@@ -575,29 +584,29 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(77);
+			setState(79);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				{
-				setState(72);
+				setState(74);
 				match(Blank);
 				}
 				break;
 			case 2:
 				{
-				setState(73);
+				setState(75);
 				match(ID);
 				}
 				break;
 			case 3:
 				{
 				{
-				setState(74);
-				match(ID);
-				setState(75);
-				match(T__3);
 				setState(76);
+				match(ID);
+				setState(77);
+				match(T__3);
+				setState(78);
 				types();
 				}
 				}
@@ -643,7 +652,7 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(79);
+			setState(81);
 			match(ID);
 			}
 		}
@@ -693,13 +702,13 @@ public class CraftParser extends Parser {
 		enterRule(_localctx, 18, RULE_types);
 		try {
 			int _alt;
-			setState(91);
+			setState(93);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(81);
+				setState(83);
 				type();
 				}
 				break;
@@ -707,7 +716,7 @@ public class CraftParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(85); 
+				setState(87); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -715,9 +724,9 @@ public class CraftParser extends Parser {
 					case 1:
 						{
 						{
-						setState(82);
+						setState(84);
 						type();
-						setState(83);
+						setState(85);
 						match(TypeSeparator);
 						}
 						}
@@ -725,11 +734,11 @@ public class CraftParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(87); 
+					setState(89); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-				setState(89);
+				setState(91);
 				type();
 				}
 				}
@@ -786,23 +795,23 @@ public class CraftParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(95); 
+			setState(97); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(95);
+				setState(97);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case T__0:
 					{
-					setState(93);
+					setState(95);
 					materials();
 					}
 					break;
 				case T__1:
 					{
-					setState(94);
+					setState(96);
 					def();
 					}
 					break;
@@ -810,7 +819,7 @@ public class CraftParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(97); 
+				setState(99); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__0 || _la==T__1 );
@@ -828,31 +837,31 @@ public class CraftParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20f\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20h\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\3\2\3\2\6\2\33\n\2\r\2\16\2\34\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\4\3\4\3\4\3\4\6\4+\n\4\r\4\16\4,\3\4\3\4\3\5\3\5\5\5\63\n\5\3\6\3\6"+
-		"\3\6\3\6\3\7\3\7\3\7\3\7\3\7\6\7>\n\7\r\7\16\7?\5\7B\n\7\3\7\3\7\3\b\6"+
-		"\bG\n\b\r\b\16\bH\3\t\3\t\3\t\3\t\3\t\5\tP\n\t\3\n\3\n\3\13\3\13\3\13"+
-		"\3\13\6\13X\n\13\r\13\16\13Y\3\13\3\13\5\13^\n\13\3\f\3\f\6\fb\n\f\r\f"+
-		"\16\fc\3\f\2\2\r\2\4\6\b\n\f\16\20\22\24\26\2\2\2f\2\30\3\2\2\2\4 \3\2"+
-		"\2\2\6&\3\2\2\2\b\62\3\2\2\2\n\64\3\2\2\2\f8\3\2\2\2\16F\3\2\2\2\20O\3"+
-		"\2\2\2\22Q\3\2\2\2\24]\3\2\2\2\26a\3\2\2\2\30\32\7\3\2\2\31\33\7\f\2\2"+
-		"\32\31\3\2\2\2\33\34\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\36\3\2\2\2"+
-		"\36\37\7\13\2\2\37\3\3\2\2\2 !\7\4\2\2!\"\7\f\2\2\"#\5\6\4\2#$\5\b\5\2"+
-		"$%\7\13\2\2%\5\3\2\2\2&*\7\5\2\2\'(\7\f\2\2()\7\6\2\2)+\5\24\13\2*\'\3"+
-		"\2\2\2+,\3\2\2\2,*\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\13\2\2/\7\3\2\2\2\60"+
-		"\63\5\n\6\2\61\63\5\f\7\2\62\60\3\2\2\2\62\61\3\2\2\2\63\t\3\2\2\2\64"+
-		"\65\7\7\2\2\65\66\5\16\b\2\66\67\7\13\2\2\67\13\3\2\2\28A\7\b\2\29B\5"+
-		"\16\b\2:;\5\16\b\2;<\7\n\2\2<>\3\2\2\2=:\3\2\2\2>?\3\2\2\2?=\3\2\2\2?"+
-		"@\3\2\2\2@B\3\2\2\2A9\3\2\2\2A=\3\2\2\2BC\3\2\2\2CD\7\13\2\2D\r\3\2\2"+
-		"\2EG\5\20\t\2FE\3\2\2\2GH\3\2\2\2HF\3\2\2\2HI\3\2\2\2I\17\3\2\2\2JP\7"+
-		"\r\2\2KP\7\f\2\2LM\7\f\2\2MN\7\6\2\2NP\5\24\13\2OJ\3\2\2\2OK\3\2\2\2O"+
-		"L\3\2\2\2P\21\3\2\2\2QR\7\f\2\2R\23\3\2\2\2S^\5\22\n\2TU\5\22\n\2UV\7"+
-		"\20\2\2VX\3\2\2\2WT\3\2\2\2XY\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z[\3\2\2\2[\\"+
-		"\5\22\n\2\\^\3\2\2\2]S\3\2\2\2]W\3\2\2\2^\25\3\2\2\2_b\5\2\2\2`b\5\4\3"+
-		"\2a_\3\2\2\2a`\3\2\2\2bc\3\2\2\2ca\3\2\2\2cd\3\2\2\2d\27\3\2\2\2\r\34"+
-		",\62?AHOY]ac";
+		"\f\t\f\3\2\3\2\6\2\33\n\2\r\2\16\2\34\3\2\3\2\3\3\3\3\3\3\5\3$\n\3\3\3"+
+		"\3\3\3\3\3\4\3\4\3\4\3\4\6\4-\n\4\r\4\16\4.\3\4\3\4\3\5\3\5\5\5\65\n\5"+
+		"\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\6\7@\n\7\r\7\16\7A\5\7D\n\7\3\7\3"+
+		"\7\3\b\6\bI\n\b\r\b\16\bJ\3\t\3\t\3\t\3\t\3\t\5\tR\n\t\3\n\3\n\3\13\3"+
+		"\13\3\13\3\13\6\13Z\n\13\r\13\16\13[\3\13\3\13\5\13`\n\13\3\f\3\f\6\f"+
+		"d\n\f\r\f\16\fe\3\f\2\2\r\2\4\6\b\n\f\16\20\22\24\26\2\2\2i\2\30\3\2\2"+
+		"\2\4 \3\2\2\2\6(\3\2\2\2\b\64\3\2\2\2\n\66\3\2\2\2\f:\3\2\2\2\16H\3\2"+
+		"\2\2\20Q\3\2\2\2\22S\3\2\2\2\24_\3\2\2\2\26c\3\2\2\2\30\32\7\3\2\2\31"+
+		"\33\7\f\2\2\32\31\3\2\2\2\33\34\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35"+
+		"\36\3\2\2\2\36\37\7\13\2\2\37\3\3\2\2\2 !\7\4\2\2!#\7\f\2\2\"$\5\6\4\2"+
+		"#\"\3\2\2\2#$\3\2\2\2$%\3\2\2\2%&\5\b\5\2&\'\7\13\2\2\'\5\3\2\2\2(,\7"+
+		"\5\2\2)*\7\f\2\2*+\7\6\2\2+-\5\24\13\2,)\3\2\2\2-.\3\2\2\2.,\3\2\2\2."+
+		"/\3\2\2\2/\60\3\2\2\2\60\61\7\13\2\2\61\7\3\2\2\2\62\65\5\n\6\2\63\65"+
+		"\5\f\7\2\64\62\3\2\2\2\64\63\3\2\2\2\65\t\3\2\2\2\66\67\7\7\2\2\678\5"+
+		"\16\b\289\7\13\2\29\13\3\2\2\2:C\7\b\2\2;D\5\16\b\2<=\5\16\b\2=>\7\n\2"+
+		"\2>@\3\2\2\2?<\3\2\2\2@A\3\2\2\2A?\3\2\2\2AB\3\2\2\2BD\3\2\2\2C;\3\2\2"+
+		"\2C?\3\2\2\2DE\3\2\2\2EF\7\13\2\2F\r\3\2\2\2GI\5\20\t\2HG\3\2\2\2IJ\3"+
+		"\2\2\2JH\3\2\2\2JK\3\2\2\2K\17\3\2\2\2LR\7\r\2\2MR\7\f\2\2NO\7\f\2\2O"+
+		"P\7\6\2\2PR\5\24\13\2QL\3\2\2\2QM\3\2\2\2QN\3\2\2\2R\21\3\2\2\2ST\7\f"+
+		"\2\2T\23\3\2\2\2U`\5\22\n\2VW\5\22\n\2WX\7\20\2\2XZ\3\2\2\2YV\3\2\2\2"+
+		"Z[\3\2\2\2[Y\3\2\2\2[\\\3\2\2\2\\]\3\2\2\2]^\5\22\n\2^`\3\2\2\2_U\3\2"+
+		"\2\2_Y\3\2\2\2`\25\3\2\2\2ad\5\2\2\2bd\5\4\3\2ca\3\2\2\2cb\3\2\2\2de\3"+
+		"\2\2\2ec\3\2\2\2ef\3\2\2\2f\27\3\2\2\2\16\34#.\64ACJQ[_ce";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

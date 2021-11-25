@@ -25,18 +25,26 @@ fun craft(input: Table, program: CraftParser.ProgramContext): String {
 
 fun craft(input: Table, def: CraftParser.DefContext): String {
 
+    // return if the definition is a list (and not a table)
+    if (def.recipe().table() == null) return undefined
+
     // keeps track of entries with type options
     val typeOptions = mutableMapOf<String, Set<String>>()
     // keeps track of set types
     val lookupType = mutableMapOf<String, String>()
 
-    val matTypes = def.materialTypes()
-    // fill type options
-    for ((id, types) in matTypes.ID() zip matTypes.types()) {
-        typeOptions[id.text] = types.type().map { it.ID().text }.toSet()
+    def.materialTypes()?.let {
+        val ids = it.ID()
+        val matTypes = it.types()
+        // fill type options
+        for ((id, types) in ids zip matTypes) {
+            typeOptions[id.text] = types.type().map { t -> t.ID().text }.toSet()
+        }
     }
 
-    val res = def.recipe().table().row().map { r -> r.entry().map { e -> e.text } }
+
+    val res = def.recipe().table().row()
+        .map { r -> r.entry().map { e -> e.text } }
 
     for ((expectedRow, actualRow) in res zip input) {
         for ((expected, actual) in expectedRow zip actualRow) {
