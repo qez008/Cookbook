@@ -1,3 +1,6 @@
+import dsl.row
+import dsl.table
+
 import org.antlr.v4.runtime.CharStreams
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -10,27 +13,27 @@ class CraftingTests {
     @Test
     fun `crafting buckets`() {
 
-        val bucketA = listOf(
-            listOf("wood", "_", "wood"),
-            listOf("wood", "_", "wood"),
-            listOf("_", "wood", "_")
-        )
-        val bucketB = listOf(
-            listOf("iron", "_", "iron"),
-            listOf("iron", "_", "iron"),
-            listOf("_", "iron", "_")
-        )
-        val bucketC = listOf(
-            listOf("iron", "_", "iron"),
-            listOf("iron", "_", "iron"),
-            listOf("_", "wood", "_")
-        )
+        val bucketA = table {
+            row("wood", "_", "wood")
+            row("wood", "_", "wood")
+            row("_", "wood", "_")
+        }
+        val bucketB = table {
+            row("iron", "_", "iron")
+            row("iron", "_", "iron")
+            row("_", "iron", "_")
+        }
+        val bucketC = table {
+            row("iron", "_", "iron")
+            row("iron", "_", "iron")
+            row("_", "wood", "_")
+        }
 
-        val bucketD = listOf(
-            listOf("gold", "_", "iron"),
-            listOf("iron", "_", "iron"),
-            listOf("_", "wood", "_")
-        )
+        val bucketD = table {
+            row("gold", "_", "iron")
+            row("iron", "_", "iron")
+            row("_", "wood", "_")
+        }
 
         val buckets = listOf(bucketA, bucketB, bucketC, bucketD)
         val expected = listOf("[wood] Bucket", "[iron] Bucket", "undefined", "undefined")
@@ -44,26 +47,26 @@ class CraftingTests {
 
     @Test
     fun `crafting swords`() {
-        val swordA = listOf(
-            listOf("wood"),
-            listOf("wood"),
-            listOf("hilt")
-        )
-        val swordB = listOf(
-            listOf("stone"),
-            listOf("stone"),
-            listOf("wood")
-        )
-        val swordC = listOf(
-            listOf("stone"),
-            listOf("wood"),
-            listOf("hilt")
-        )
-        val swordD = listOf(
-            listOf("stone"),
-            listOf("stone"),
-            listOf("hilt")
-        )
+        val swordA = table {
+            row("wood")
+            row("wood")
+            row("hilt")
+        }
+        val swordB = table {
+            row("stone")
+            row("stone")
+            row("wood")
+        }
+        val swordC = table {
+            row("stone")
+            row("wood")
+            row("hilt")
+        }
+        val swordD = table {
+            row("stone")
+            row("stone")
+            row("hilt")
+        }
 
         val swords = listOf(swordA, swordB, swordC, swordD)
         val expected = listOf("[wood] Sword", "undefined", "undefined", "[stone] Sword")
@@ -78,18 +81,18 @@ class CraftingTests {
 
     @Test
     fun `crafting axes`() {
-        val axeA = listOf(
-            listOf("dull"),
-            listOf("stone"),
-            listOf("handle"),
-            listOf("handle"),
-        )
-        val axeB = listOf(
-            listOf("sharp"),
-            listOf("iron"),
-            listOf("handle"),
-            listOf("handle"),
-        )
+        val axeA = table {
+            row("dull")
+            row("stone")
+            row("handle")
+            row("handle")
+        }
+        val axeB = table {
+            row("sharp")
+            row("iron")
+            row("handle")
+            row("handle")
+        }
 
         val axes = listOf(axeA, axeB)
         val expected = listOf("[dull, stone] Axe", "[sharp, iron] Axe")

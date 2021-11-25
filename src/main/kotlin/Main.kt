@@ -1,3 +1,4 @@
+import dsl.Table
 import gen.CraftLexer
 import gen.CraftParser
 import org.antlr.v4.runtime.CharStream
@@ -14,7 +15,7 @@ fun program(stream: CharStream): CraftParser.ProgramContext {
     return parser.program()
 }
 
-fun craft(input: List<List<String>>, program: CraftParser.ProgramContext): String {
+fun craft(input: Table, program: CraftParser.ProgramContext): String {
     for (def in program.def()) {
         val item = craft(input, def)
         if (item != undefined) return item
@@ -22,7 +23,7 @@ fun craft(input: List<List<String>>, program: CraftParser.ProgramContext): Strin
     return undefined
 }
 
-fun craft(input: List<List<String>>, def: CraftParser.DefContext): String {
+fun craft(input: Table, def: CraftParser.DefContext): String {
 
     // keeps track of entries with type options
     val typeOptions = mutableMapOf<String, Set<String>>()
