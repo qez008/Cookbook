@@ -1,0 +1,48 @@
+item Book list paper paper paper leather end end
+
+item Sandwich
+	mats meat : chicken/pepperoni/ham end
+	list bread bread meat salad end
+end
+
+item Chair
+	table
+		x _ _ ,
+		x x x ,
+		l _ l ,
+	end
+end
+
+item Bucket
+	mats t : wood/iron end
+	table t _ t , t _ t , _ t _ , end
+end
+
+item Sword
+	mats blade : wood/stone/iron/gold/diamond end
+	table blade , blade , hilt , end
+end
+
+item Axe
+	mats
+		blade : wood/stone/iron/gold/diamond
+		quality : dull/sharp
+	end
+	table
+		quality		_ ,
+		blade		blade ,
+		handle		blade ,
+		handle		_ ,
+	end
+end
+
+item Stairs
+	mats
+		x : wood/stone
+	end
+	table
+		x _ _ ,
+		x x _ ,
+		x x x ,
+	end
+end

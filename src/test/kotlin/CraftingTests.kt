@@ -1,13 +1,13 @@
+import dsl.list
 import dsl.row
 import dsl.table
-
 import org.antlr.v4.runtime.CharStreams
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CraftingTests {
 
-    private val input = CharStreams.fromFileName("example")
+    private val input = CharStreams.fromFileName("example.cb")
     private val program = program(input)
 
     @Test
@@ -81,16 +81,16 @@ class CraftingTests {
     @Test
     fun `crafting axes`() {
         val axeA = table {
-            row("dull")
-            row("stone")
-            row("handle")
-            row("handle")
+            row("dull", "_")
+            row("stone", "stone")
+            row("handle", "stone")
+            row("handle", "_")
         }
         val axeB = table {
-            row("sharp")
-            row("iron")
-            row("handle")
-            row("handle")
+            row("sharp", "_")
+            row("iron", "iron")
+            row("handle", "iron")
+            row("handle", "_")
         }
 
         val axes = listOf(axeA, axeB)
@@ -100,6 +100,76 @@ class CraftingTests {
             val item = craft(a, program)
             println(item)
             assertEquals(e, item)
+        }
+    }
+
+    @Test
+    fun `crafting stairs`() {
+        val stairA = table {
+            row("wood", "_", "_")
+            row("wood", "wood", "_")
+            row("wood", "wood", "wood")
+        }
+        val stairB = table {
+            row("stone", "_", "_")
+            row("stone", "stone", "_")
+            row("stone", "stone", "stone")
+        }
+
+        val stairC = table {
+            row("silk", "_", "_")
+            row("silk", "silk", "_")
+            row("silk", "silk", "silk")
+        }
+
+        val stairD = table {
+            row("wood")
+            row("wood")
+            row("wood")
+        }
+
+        val expected = listOf("[wood] Stairs", "[stone] Stairs", "undefined", "undefined")
+        val stairs = listOf(stairA, stairB, stairC, stairD)
+
+        for ((e, s) in expected zip stairs) {
+            val result = craft(s, program)
+            println(result)
+            assertEquals(e, result)
+        }
+    }
+
+
+    @Test
+    fun `crafting books`() {
+        val bookA = list("paper", "paper", "paper", "leather")
+        val bookB = list("leather", "paper", "paper", "paper")
+        val bookC = list("paper", "leather", "paper", "paper")
+        val bookD = list("paper", "paper", "leather", "paper")
+
+        val books = listOf(bookA, bookB, bookC, bookD)
+        val expected = list("Book", "Book", "Book", "Book")
+
+        for ((b, e) in books zip expected) {
+            val result = craft(b, program)
+            println(result)
+            assertEquals(e, result)
+        }
+    }
+
+    @Test
+    fun `crafting sandwiches`() {
+        val sandwichA = list("bread", "bread", "pepperoni", "salad")
+        val sandwichB = list("bread", "bread", "ham", "salad")
+        val sandwichC = list("bread", "bread", "chicken", "salad")
+        val sandwichD = list("bread", "bread", "wood", "salad")
+
+        val expected = listOf("[pepperoni] Sandwich", "[ham] Sandwich", "[chicken] Sandwich", "undefined")
+        val sandwiches = listOf(sandwichA, sandwichB, sandwichC, sandwichD)
+
+        for ((s, e) in sandwiches zip expected) {
+            val result = craft(s, program)
+            println(result)
+            assertEquals(e, result)
         }
     }
 }
