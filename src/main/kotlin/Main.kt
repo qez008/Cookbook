@@ -1,15 +1,15 @@
-import gen.CraftLexer
-import gen.CraftParser
+import gen.CookbookLexer
+import gen.CookbookParser
 import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 
 
-fun program(stream: CharStream): CraftParser.ProgramContext {
+fun program(stream: CharStream): CookbookParser.ProgramContext {
 
-    val lexer = CraftLexer(stream)
+    val lexer = CookbookLexer(stream)
     val tokens = CommonTokenStream(lexer)
-    val parser = CraftParser(tokens)
+    val parser = CookbookParser(tokens)
 
     return parser.program()
 }

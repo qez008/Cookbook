@@ -1,7 +1,7 @@
 import dsl.Row
 import dsl.Table
-import gen.CraftLexer
-import gen.CraftParser
+import gen.CookbookLexer
+import gen.CookbookParser
 import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CommonTokenStream
 
@@ -10,16 +10,16 @@ const val undefined = "undefined"
 
 class Evaluator(stream: CharStream) {
 
-    val lexer = CraftLexer(stream)
+    val lexer = CookbookLexer(stream)
     val tokens = CommonTokenStream(lexer)
-    val parser = CraftParser(tokens)
+    val parser = CookbookParser(tokens)
     val tree = parser.program()
 
     fun eval(row: Row) = craft(row, tree)
     fun eval(table: Table) = craft(table, tree)
 }
 
-fun craft(input: Row, program: CraftParser.ProgramContext): String {
+fun craft(input: Row, program: CookbookParser.ProgramContext): String {
     for (def in program.def()) {
         val item = craft(input, def)
         if (item != undefined) return item
@@ -27,7 +27,7 @@ fun craft(input: Row, program: CraftParser.ProgramContext): String {
     return undefined
 }
 
-fun craft(input: Row, def: CraftParser.DefContext): String {
+fun craft(input: Row, def: CookbookParser.DefContext): String {
     val listRecipe = def.recipe().list() ?: return undefined
 
     val typeOptions = mutableMapOf<String, Set<String>>()
@@ -59,7 +59,7 @@ fun craft(input: Row, def: CraftParser.DefContext): String {
     return undefined
 }
 
-fun craft(input: Table, program: CraftParser.ProgramContext): String {
+fun craft(input: Table, program: CookbookParser.ProgramContext): String {
     for (def in program.def()) {
         val item = craft(input, def)
         if (item != undefined) return item
@@ -67,7 +67,7 @@ fun craft(input: Table, program: CraftParser.ProgramContext): String {
     return undefined
 }
 
-fun craft(input: Table, def: CraftParser.DefContext): String {
+fun craft(input: Table, def: CookbookParser.DefContext): String {
 
     // return if the definition is a list (and not a table)
     if (def.recipe().table() == null) return undefined
@@ -114,7 +114,7 @@ fun craft(input: Table, def: CraftParser.DefContext): String {
 }
 
 fun fillTypeOptions(
-    materialTypes: CraftParser.MaterialTypesContext?,
+    materialTypes: CookbookParser.MaterialTypesContext?,
     typeOptions: MutableMap<String, Set<String>>
 ) {
     materialTypes?.let {

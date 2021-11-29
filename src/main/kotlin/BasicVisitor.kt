@@ -1,9 +1,9 @@
-import gen.CraftBaseVisitor
-import gen.CraftParser
+import gen.CookbookBaseVisitor
+import gen.CookbookParser
 
-class BasicVisitor : CraftBaseVisitor<String>() {
+class BasicVisitor : CookbookBaseVisitor<String>() {
 
-    override fun visitProgram(prog: CraftParser.ProgramContext?): String =
+    override fun visitProgram(prog: CookbookParser.ProgramContext?): String =
         prog?.let {
             var result = ""
             for (mats in prog.materials()) {
@@ -17,7 +17,7 @@ class BasicVisitor : CraftBaseVisitor<String>() {
         }
             ?: ""
 
-    override fun visitMaterials(mats: CraftParser.MaterialsContext?): String =
+    override fun visitMaterials(mats: CookbookParser.MaterialsContext?): String =
         mats?.let {
             var result = "materials:\n"
             val separator = "  - "
@@ -28,13 +28,13 @@ class BasicVisitor : CraftBaseVisitor<String>() {
         }
             ?: ""
 
-    override fun visitDef(ctx: CraftParser.DefContext?): String =
+    override fun visitDef(ctx: CookbookParser.DefContext?): String =
         ctx?.let { def -> "recipe [${def.ID()}]:\n${visitRecipe(def.recipe())}\n" } ?: ""
 
-    override fun visitRecipe(ctx: CraftParser.RecipeContext?): String =
+    override fun visitRecipe(ctx: CookbookParser.RecipeContext?): String =
         ctx?.let { res -> visitList(res.list()) + visitTable(res.table()) } ?: ""
 
-    override fun visitTable(ctx: CraftParser.TableContext?): String =
+    override fun visitTable(ctx: CookbookParser.TableContext?): String =
         ctx?.let { table ->
             var result = "  table:\n"
             for (row in table.row()) {
@@ -44,22 +44,22 @@ class BasicVisitor : CraftBaseVisitor<String>() {
         }
             ?: ""
 
-    override fun visitList(ctx: CraftParser.ListContext?): String =
+    override fun visitList(ctx: CookbookParser.ListContext?): String =
         ctx?.let { list ->
             "  list [ ${visitRow(list.row())} ]\n"
         }
             ?: ""
 
-    override fun visitRow(ctx: CraftParser.RowContext?): String =
+    override fun visitRow(ctx: CookbookParser.RowContext?): String =
         ctx?.let { row ->
             row.entry().joinToString(" ") { visitEntry(it) }
         }
             ?: ""
 
-    override fun visitEntry(ctx: CraftParser.EntryContext?): String =
+    override fun visitEntry(ctx: CookbookParser.EntryContext?): String =
         ctx?.text ?: ""
 
-    override fun visitTypes(ctx: CraftParser.TypesContext?): String =
+    override fun visitTypes(ctx: CookbookParser.TypesContext?): String =
         ctx?.let { types ->
             types.type().joinToString("/", "(", ")") { it.text }
         }

@@ -1,4 +1,4 @@
-// Generated from /Users/morten/Documents/uib/M-inf225/term-project/Craft.g4 by ANTLR 4.9.2
+// Generated from /Users/morten/Documents/uib/M-inf225/term-project/Cookbook.g4 by ANTLR 4.9.2
 package gen;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class CraftParser extends Parser {
+public class CookbookParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -79,7 +79,7 @@ public class CraftParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Craft.g4"; }
+	public String getGrammarFileName() { return "Cookbook.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -90,16 +90,16 @@ public class CraftParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public CraftParser(TokenStream input) {
+	public CookbookParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	public static class MaterialsContext extends ParserRuleContext {
-		public TerminalNode End() { return getToken(CraftParser.End, 0); }
-		public List<TerminalNode> ID() { return getTokens(CraftParser.ID); }
+		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
+		public List<TerminalNode> ID() { return getTokens(CookbookParser.ID); }
 		public TerminalNode ID(int i) {
-			return getToken(CraftParser.ID, i);
+			return getToken(CookbookParser.ID, i);
 		}
 		public MaterialsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -107,15 +107,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_materials; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterMaterials(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterMaterials(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitMaterials(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitMaterials(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitMaterials(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitMaterials(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -159,11 +159,11 @@ public class CraftParser extends Parser {
 	}
 
 	public static class DefContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
+		public TerminalNode ID() { return getToken(CookbookParser.ID, 0); }
 		public RecipeContext recipe() {
 			return getRuleContext(RecipeContext.class,0);
 		}
-		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
 		public MaterialTypesContext materialTypes() {
 			return getRuleContext(MaterialTypesContext.class,0);
 		}
@@ -173,15 +173,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_def; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterDef(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterDef(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitDef(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitDef(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitDef(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitDef(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -225,10 +225,10 @@ public class CraftParser extends Parser {
 	}
 
 	public static class MaterialTypesContext extends ParserRuleContext {
-		public TerminalNode End() { return getToken(CraftParser.End, 0); }
-		public List<TerminalNode> ID() { return getTokens(CraftParser.ID); }
+		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
+		public List<TerminalNode> ID() { return getTokens(CookbookParser.ID); }
 		public TerminalNode ID(int i) {
-			return getToken(CraftParser.ID, i);
+			return getToken(CookbookParser.ID, i);
 		}
 		public List<TypesContext> types() {
 			return getRuleContexts(TypesContext.class);
@@ -242,15 +242,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_materialTypes; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterMaterialTypes(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterMaterialTypes(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitMaterialTypes(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitMaterialTypes(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitMaterialTypes(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitMaterialTypes(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -310,15 +310,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_recipe; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterRecipe(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterRecipe(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitRecipe(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitRecipe(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitRecipe(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitRecipe(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -363,22 +363,22 @@ public class CraftParser extends Parser {
 		public RowContext row() {
 			return getRuleContext(RowContext.class,0);
 		}
-		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
 		public ListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_list; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterList(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterList(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitList(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitList(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitList(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitList(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -409,16 +409,16 @@ public class CraftParser extends Parser {
 	}
 
 	public static class TableContext extends ParserRuleContext {
-		public TerminalNode End() { return getToken(CraftParser.End, 0); }
+		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
 		public List<RowContext> row() {
 			return getRuleContexts(RowContext.class);
 		}
 		public RowContext row(int i) {
 			return getRuleContext(RowContext.class,i);
 		}
-		public List<TerminalNode> EndRow() { return getTokens(CraftParser.EndRow); }
+		public List<TerminalNode> EndRow() { return getTokens(CookbookParser.EndRow); }
 		public TerminalNode EndRow(int i) {
-			return getToken(CraftParser.EndRow, i);
+			return getToken(CookbookParser.EndRow, i);
 		}
 		public TableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -426,15 +426,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_table; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterTable(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterTable(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitTable(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitTable(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitTable(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitTable(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -506,15 +506,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_row; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterRow(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterRow(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitRow(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitRow(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitRow(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitRow(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -554,8 +554,8 @@ public class CraftParser extends Parser {
 	}
 
 	public static class EntryContext extends ParserRuleContext {
-		public TerminalNode Blank() { return getToken(CraftParser.Blank, 0); }
-		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
+		public TerminalNode Blank() { return getToken(CookbookParser.Blank, 0); }
+		public TerminalNode ID() { return getToken(CookbookParser.ID, 0); }
 		public TypesContext types() {
 			return getRuleContext(TypesContext.class,0);
 		}
@@ -565,15 +565,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_entry; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterEntry(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterEntry(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitEntry(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitEntry(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitEntry(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitEntry(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -626,22 +626,22 @@ public class CraftParser extends Parser {
 	}
 
 	public static class TypeContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CraftParser.ID, 0); }
+		public TerminalNode ID() { return getToken(CookbookParser.ID, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_type; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterType(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitType(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitType(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitType(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitType(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -674,9 +674,9 @@ public class CraftParser extends Parser {
 		public TypeContext type(int i) {
 			return getRuleContext(TypeContext.class,i);
 		}
-		public List<TerminalNode> TypeSeparator() { return getTokens(CraftParser.TypeSeparator); }
+		public List<TerminalNode> TypeSeparator() { return getTokens(CookbookParser.TypeSeparator); }
 		public TerminalNode TypeSeparator(int i) {
-			return getToken(CraftParser.TypeSeparator, i);
+			return getToken(CookbookParser.TypeSeparator, i);
 		}
 		public TypesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -684,15 +684,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_types; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterTypes(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterTypes(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitTypes(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitTypes(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitTypes(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitTypes(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -775,15 +775,15 @@ public class CraftParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).enterProgram(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CraftListener ) ((CraftListener)listener).exitProgram(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitProgram(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CraftVisitor ) return ((CraftVisitor<? extends T>)visitor).visitProgram(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitProgram(this);
 			else return visitor.visitChildren(this);
 		}
 	}

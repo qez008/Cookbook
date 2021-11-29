@@ -1,5 +1,5 @@
 // grammar for crafting
-grammar Craft;
+grammar Cookbook;
 
 WS : [ \t\n]+ -> skip ;
 

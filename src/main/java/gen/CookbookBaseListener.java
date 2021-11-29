@@ -1,4 +1,4 @@
-// Generated from /Users/morten/Documents/uib/M-inf225/term-project/Craft.g4 by ANTLR 4.9.2
+// Generated from /Users/morten/Documents/uib/M-inf225/term-project/Cookbook.g4 by ANTLR 4.9.2
 package gen;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -6,143 +6,143 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link CraftListener},
+ * This class provides an empty implementation of {@link CookbookListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class CraftBaseListener implements CraftListener {
+public class CookbookBaseListener implements CookbookListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMaterials(CraftParser.MaterialsContext ctx) { }
+	@Override public void enterMaterials(CookbookParser.MaterialsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMaterials(CraftParser.MaterialsContext ctx) { }
+	@Override public void exitMaterials(CookbookParser.MaterialsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDef(CraftParser.DefContext ctx) { }
+	@Override public void enterDef(CookbookParser.DefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDef(CraftParser.DefContext ctx) { }
+	@Override public void exitDef(CookbookParser.DefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMaterialTypes(CraftParser.MaterialTypesContext ctx) { }
+	@Override public void enterMaterialTypes(CookbookParser.MaterialTypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMaterialTypes(CraftParser.MaterialTypesContext ctx) { }
+	@Override public void exitMaterialTypes(CookbookParser.MaterialTypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRecipe(CraftParser.RecipeContext ctx) { }
+	@Override public void enterRecipe(CookbookParser.RecipeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRecipe(CraftParser.RecipeContext ctx) { }
+	@Override public void exitRecipe(CookbookParser.RecipeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterList(CraftParser.ListContext ctx) { }
+	@Override public void enterList(CookbookParser.ListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitList(CraftParser.ListContext ctx) { }
+	@Override public void exitList(CookbookParser.ListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable(CraftParser.TableContext ctx) { }
+	@Override public void enterTable(CookbookParser.TableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable(CraftParser.TableContext ctx) { }
+	@Override public void exitTable(CookbookParser.TableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRow(CraftParser.RowContext ctx) { }
+	@Override public void enterRow(CookbookParser.RowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRow(CraftParser.RowContext ctx) { }
+	@Override public void exitRow(CookbookParser.RowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEntry(CraftParser.EntryContext ctx) { }
+	@Override public void enterEntry(CookbookParser.EntryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEntry(CraftParser.EntryContext ctx) { }
+	@Override public void exitEntry(CookbookParser.EntryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(CraftParser.TypeContext ctx) { }
+	@Override public void enterType(CookbookParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(CraftParser.TypeContext ctx) { }
+	@Override public void exitType(CookbookParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTypes(CraftParser.TypesContext ctx) { }
+	@Override public void enterTypes(CookbookParser.TypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTypes(CraftParser.TypesContext ctx) { }
+	@Override public void exitTypes(CookbookParser.TypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(CraftParser.ProgramContext ctx) { }
+	@Override public void enterProgram(CookbookParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(CraftParser.ProgramContext ctx) { }
+	@Override public void exitProgram(CookbookParser.ProgramContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
