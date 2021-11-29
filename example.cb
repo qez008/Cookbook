@@ -15,7 +15,11 @@ end
 
 item Bucket
 	mats t : wood/iron end
-	table t _ t , t _ t , _ t _ , end
+	table
+		t _ t ,
+		t _ t ,
+		_ t _ ,
+	end
 end
 
 item Sword
