@@ -1,4 +1,5 @@
 item Book list paper paper paper leather end end
+item BookAlt list paper:3 leather end end
 
 item Sandwich
 	mats meat : chicken/pepperoni/ham end
@@ -16,9 +17,9 @@ end
 item Bucket
 	mats t : wood/iron end
 	table
-		t _ t ,
-		t _ t ,
-		_ t _ ,
+		t:1 _ t:1 ,
+		t:1 _ t:1 ,
+		_ t:1 _ ,
 	end
 end
 

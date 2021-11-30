@@ -6,12 +6,9 @@ class BasicVisitor : CookbookBaseVisitor<String>() {
     override fun visitProgram(prog: CookbookParser.ProgramContext?): String =
         prog?.let {
             var result = ""
-            for (mats in prog.materials()) {
-                result += visitMaterials(mats)
-            }
 
-            for (def in prog.def()) {
-                result += visitDef(def)
+            for (def in prog.definition()) {
+                result += visitDefinition(def)
             }
             result
         }
@@ -28,7 +25,7 @@ class BasicVisitor : CookbookBaseVisitor<String>() {
         }
             ?: ""
 
-    override fun visitDef(ctx: CookbookParser.DefContext?): String =
+    override fun visitDefinition(ctx: CookbookParser.DefinitionContext?): String =
         ctx?.let { def -> "recipe [${def.ID()}]:\n${visitRecipe(def.recipe())}\n" } ?: ""
 
     override fun visitRecipe(ctx: CookbookParser.RecipeContext?): String =
@@ -61,7 +58,7 @@ class BasicVisitor : CookbookBaseVisitor<String>() {
 
     override fun visitTypes(ctx: CookbookParser.TypesContext?): String =
         ctx?.let { types ->
-            types.type().joinToString("/", "(", ")") { it.text }
+            types.ID().joinToString("/", "(", ")") { it.text }
         }
             ?: ""
 }

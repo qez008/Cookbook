@@ -18,5 +18,13 @@ fun main() {
 
     val input = CharStreams.fromFileName("example.cb")
     val program = program(input)
+    explore(program)
+}
+
+fun explore(program: CookbookParser.ProgramContext?) {
+    program ?: return
+    for (def in program.definition()) {
+        println(def.text)
+    }
 }
 

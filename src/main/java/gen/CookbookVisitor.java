@@ -11,23 +11,23 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CookbookVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link CookbookParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(CookbookParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CookbookParser#definition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefinition(CookbookParser.DefinitionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CookbookParser#materials}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMaterials(CookbookParser.MaterialsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CookbookParser#def}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDef(CookbookParser.DefContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CookbookParser#materialTypes}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMaterialTypes(CookbookParser.MaterialTypesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
@@ -59,21 +59,9 @@ public interface CookbookVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEntry(CookbookParser.EntryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CookbookParser#type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitType(CookbookParser.TypeContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CookbookParser#types}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTypes(CookbookParser.TypesContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CookbookParser#program}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProgram(CookbookParser.ProgramContext ctx);
 }

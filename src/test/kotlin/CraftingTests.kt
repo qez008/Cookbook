@@ -18,14 +18,14 @@ class CraftingTests {
             row("_", "wood", "_")
         }
         val bucketB = table {
-            row("iron", "_", "iron")
-            row("iron", "_", "iron")
+            row("iron:1", "_", "iron")
+            row("iron", "_", "iron:1")
             row("_", "iron", "_")
         }
         val bucketC = table {
             row("iron", "_", "iron")
             row("iron", "_", "iron")
-            row("_", "wood", "_")
+            row("_", "wood:1", "_")
         }
         val bucketD = table {
             row("gold", "_", "iron")
@@ -145,8 +145,11 @@ class CraftingTests {
         val bookC = list("paper", "leather", "paper", "paper")
         val bookD = list("paper", "paper", "leather", "paper")
 
-        val books = listOf(bookA, bookB, bookC, bookD)
-        val expected = list("Book", "Book", "Book", "Book")
+        val bookE = list("paper:3", "leather")
+        val bookF = list("leather", "paper:3")
+
+        val books = listOf(bookA, bookB, bookC, bookD, bookE, bookF)
+        val expected = list("Book", "Book", "Book", "Book", "BookAlt", "BookAlt")
 
         for ((b, e) in books zip expected) {
             val result = evaluator.eval(b)

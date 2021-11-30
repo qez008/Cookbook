@@ -16,6 +16,30 @@ public class CookbookBaseListener implements CookbookListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterProgram(CookbookParser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProgram(CookbookParser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDefinition(CookbookParser.DefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDefinition(CookbookParser.DefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMaterials(CookbookParser.MaterialsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -23,30 +47,6 @@ public class CookbookBaseListener implements CookbookListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMaterials(CookbookParser.MaterialsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDef(CookbookParser.DefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDef(CookbookParser.DefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMaterialTypes(CookbookParser.MaterialTypesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMaterialTypes(CookbookParser.MaterialTypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -112,18 +112,6 @@ public class CookbookBaseListener implements CookbookListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(CookbookParser.TypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitType(CookbookParser.TypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTypes(CookbookParser.TypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -131,18 +119,6 @@ public class CookbookBaseListener implements CookbookListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTypes(CookbookParser.TypesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterProgram(CookbookParser.ProgramContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitProgram(CookbookParser.ProgramContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

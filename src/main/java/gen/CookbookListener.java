@@ -8,6 +8,26 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CookbookListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link CookbookParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void enterProgram(CookbookParser.ProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CookbookParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void exitProgram(CookbookParser.ProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CookbookParser#definition}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefinition(CookbookParser.DefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CookbookParser#definition}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefinition(CookbookParser.DefinitionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CookbookParser#materials}.
 	 * @param ctx the parse tree
 	 */
@@ -17,26 +37,6 @@ public interface CookbookListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMaterials(CookbookParser.MaterialsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CookbookParser#def}.
-	 * @param ctx the parse tree
-	 */
-	void enterDef(CookbookParser.DefContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CookbookParser#def}.
-	 * @param ctx the parse tree
-	 */
-	void exitDef(CookbookParser.DefContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CookbookParser#materialTypes}.
-	 * @param ctx the parse tree
-	 */
-	void enterMaterialTypes(CookbookParser.MaterialTypesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CookbookParser#materialTypes}.
-	 * @param ctx the parse tree
-	 */
-	void exitMaterialTypes(CookbookParser.MaterialTypesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
@@ -88,16 +88,6 @@ public interface CookbookListener extends ParseTreeListener {
 	 */
 	void exitEntry(CookbookParser.EntryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CookbookParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void enterType(CookbookParser.TypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CookbookParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void exitType(CookbookParser.TypeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CookbookParser#types}.
 	 * @param ctx the parse tree
 	 */
@@ -107,14 +97,4 @@ public interface CookbookListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTypes(CookbookParser.TypesContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CookbookParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void enterProgram(CookbookParser.ProgramContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CookbookParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void exitProgram(CookbookParser.ProgramContext ctx);
 }

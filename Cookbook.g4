@@ -6,7 +6,7 @@ WS : [ \t\n]+ -> skip ;
 EndRow : ',';
 End : 'end';
 
-ID : [a-zA-Z] [a-zA-Z0-9]*;
+ID : [a-zA-Z][a-zA-Z0-9]*;
 Blank : '_';
 
 Num : '0' | [1-9][0-9]*;
@@ -14,24 +14,17 @@ Str : '\'' .+? '\'';
 
 TypeSeparator : '/';
 
+program : definition+;
 
-materials : 'materials' ID+ End;
+definition : 'item' ID materials? recipe End;
 
-def : 'item' ID materialTypes? recipe End;
-
-
-materialTypes : 'mats' (ID ':' types)+ End;
-// recipies defines how items are created
+materials : 'mats' (ID ':' types)+ End;
 recipe : list | table;
+
 list : 'list' row End;
 table : 'table' (row | (row EndRow)+) End;
 
 row : entry+;
-entry : (Blank | ID | (ID ':' types));
+entry : (Blank | ID | ID':'Num);
 
-type : ID;
-types : type | ((type TypeSeparator)+ type);
-
-
-
-program : (materials | def)+;
+types : ID | ((ID TypeSeparator)+ ID);
