@@ -7,8 +7,7 @@ import org.junit.Test
 
 class CraftingTests {
 
-    private val input = CharStreams.fromFileName("example.cb")
-    private val program = program(input)
+    private val evaluator = Evaluator(CharStreams.fromFileName("example.cb"))
 
     @Test
     fun `crafting buckets`() {
@@ -38,7 +37,7 @@ class CraftingTests {
         val expected = listOf("[wood] Bucket", "[iron] Bucket", "undefined", "undefined")
 
         for ((b, e) in buckets zip expected) {
-            val item = craft(b, program)
+            val item = evaluator.eval(b)
             println(item)
             assertEquals(e, item)
         }
@@ -71,7 +70,7 @@ class CraftingTests {
         val expected = listOf("[wood] Sword", "undefined", "undefined", "[stone] Sword")
 
         for ((s, e) in swords zip expected) {
-            val item = craft(s, program)
+            val item = evaluator.eval(s)
             println(item)
             assertEquals(e, item)
         }
@@ -97,7 +96,7 @@ class CraftingTests {
         val expected = listOf("[dull, stone] Axe", "[sharp, iron] Axe")
 
         for ((a, e) in axes zip expected) {
-            val item = craft(a, program)
+            val item = evaluator.eval(a)
             println(item)
             assertEquals(e, item)
         }
@@ -132,7 +131,7 @@ class CraftingTests {
         val stairs = listOf(stairA, stairB, stairC, stairD)
 
         for ((e, s) in expected zip stairs) {
-            val result = craft(s, program)
+            val result = evaluator.eval(s)
             println(result)
             assertEquals(e, result)
         }
@@ -150,7 +149,7 @@ class CraftingTests {
         val expected = list("Book", "Book", "Book", "Book")
 
         for ((b, e) in books zip expected) {
-            val result = craft(b, program)
+            val result = evaluator.eval(b)
             println(result)
             assertEquals(e, result)
         }
@@ -167,7 +166,7 @@ class CraftingTests {
         val sandwiches = listOf(sandwichA, sandwichB, sandwichC, sandwichD)
 
         for ((s, e) in sandwiches zip expected) {
-            val result = craft(s, program)
+            val result = evaluator.eval(s)
             println(result)
             assertEquals(e, result)
         }
