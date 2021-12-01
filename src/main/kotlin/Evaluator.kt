@@ -1,7 +1,4 @@
-import dsl.Row
-import dsl.Table
-import dsl.row
-import dsl.table
+import dsl.*
 import gen.CookbookLexer
 import gen.CookbookParser
 import org.antlr.v4.runtime.CharStream
@@ -63,7 +60,7 @@ fun craft(input: Row, def: CookbookParser.DefinitionContext): String {
 }
 
 fun craft(input: Table, program: CookbookParser.ProgramContext): String {
-    val tidyInput = tidyTable(input)
+    val tidyInput = tidyInput(input)
 
     for (def in program.definition()) {
         val item = craft(tidyInput, def)
@@ -75,26 +72,14 @@ fun craft(input: Table, program: CookbookParser.ProgramContext): String {
 fun craft(input: Table, def: CookbookParser.DefinitionContext): String {
 
     // return if the definition is a list (and not a table)
-    def.recipe().table() ?: return undefined
+    val table = def.recipe().table() ?: return undefined
 
     val typeOptions = mutableMapOf<String, Set<String>>()
     val setTypes = mutableMapOf<String, String>()
 
     fillTypeOptions(def.materials(), typeOptions)
 
-    val recipe = def.recipe().table().row()
-        .map { row ->
-            row.entry().map { e ->
-                when (e.text) {
-                    blank -> blank
-                    else -> {
-                        // remove unnecessary amounts. default to x:1
-                        val num: Int? = e.Num()?.text?.toInt()
-                        e.ID().text + if (num != null && num > 1) ":$num" else ""
-                    }
-                }
-            }
-        }
+    val recipe = tidyRecipe(table)
 
     for ((expectedRow, actualRow) in recipe zip input) {
         val diff = (expectedRow.size - actualRow.items.size).coerceAtLeast(0)
@@ -143,7 +128,7 @@ fun fillTypeOptions(
     }
 }
 
-fun tidyTable(table: Table): Table {
+fun tidyInput(table: Table): Table {
     fun transform(str: String): String {
         if (':' !in str) return str
         val (id, num) = str.split(":")
@@ -155,3 +140,20 @@ fun tidyTable(table: Table): Table {
         }
     }
 }
+
+fun tidyRecipe(table: CookbookParser.TableContext): List<List<String>> =
+    table.row().map { row -> row.entry().map(::tidy) }
+
+fun tidyRecipe(list: CookbookParser.ListContext): List<String> =
+    list.row().entry().map(::tidy)
+
+fun tidy(entry: CookbookParser.EntryContext): String =
+    when (entry.text) {
+        blank -> blank
+        else -> {
+            val id = entry.ID()
+            val maybeInt: Int? = entry.Num()?.text?.toIntOrNull()
+            val amount = if (maybeInt != null && maybeInt > 1) ":$maybeInt" else ""
+            "$id$amount"
+        }
+    }

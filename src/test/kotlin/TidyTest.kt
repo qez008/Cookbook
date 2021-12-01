@@ -19,7 +19,7 @@ class TidyTest {
             row("_", "iron", "_")
         }
 
-        assertEquals(expected, tidyTable(input))
+        assertEquals(expected, tidyInput(input))
     }
 
     @Test
@@ -36,7 +36,7 @@ class TidyTest {
             row("_", "iron", "_")
         }
 
-        assertEquals(expected, tidyTable(input))
+        assertEquals(expected, tidyInput(input))
     }
 
     @Test
@@ -53,6 +53,6 @@ class TidyTest {
             row("_", "iron", "_")
         }
 
-        assertEquals(expected, tidyTable(input))
+        assertEquals(expected, tidyInput(input))
     }
 }
