@@ -5,16 +5,7 @@ import gen.CookbookParser
 import org.antlr.v4.runtime.tree.TerminalNode
 
 
-typealias Recipe = Either<Row, Table>
-typealias ListRecipe = Either.Left<Row, Table>
-typealias TableRecipe = Either.Right<Row, Table>
 typealias Materials = Map<String, List<String>>
-
-// helper class
-sealed class Either<out L, out R> {
-    data class Left<L, R>(val value: L) : Either<L, R>()
-    data class Right<L, R>(val value: R) : Either<L, R>()
-}
 
 
 data class CookBook(val definitions: List<Definition>) {
@@ -41,8 +32,7 @@ fun MutableList<CookBook.Definition>.entry(def: CookbookParser.DefinitionContext
 
 // ----------------- Tree exploration -----------------
 
-fun visit(program: CookbookParser.ProgramContext?): CookBook {
-    program!!
+fun visit(program: CookbookParser.ProgramContext): CookBook {
     return cookbook {
         for (def in program.definition()) {
             entry(def)
@@ -67,27 +57,26 @@ fun visit(recipe: CookbookParser.RecipeContext): Recipe =
         else -> error("Either list or table should not be null!")
     }
 
-fun visit(table: CookbookParser.TableContext): Recipe {
-    val value = table {
-        for (row in tidyRecipe(table)) {
+fun visit(table: CookbookParser.TableContext): Recipe =
+    table {
+        for (row in visitTable(table)) {
             row(*row.toTypedArray())
         }
     }
-    return Either.Right(value)
-}
 
-fun visit(list: CookbookParser.ListContext): Recipe {
-    val value = list(*tidyRecipe(list).toTypedArray())
-    return Either.Left(value)
-}
+fun visit(list: CookbookParser.ListContext): Recipe =
+    list(*visitList(list).toTypedArray())
 
-fun tidyRecipe(table: CookbookParser.TableContext): List<List<String>> =
-    table.row().map { row -> row.entry().map(::tidy) }
 
-fun tidyRecipe(list: CookbookParser.ListContext): List<String> =
-    list.row().entry().map(::tidy).sorted()
+fun visitTable(table: CookbookParser.TableContext): List<List<String>> =
+    table.row().map { row -> row.entry().map(::entryToString) }
 
-fun tidy(entry: CookbookParser.EntryContext): String =
+
+fun visitList(list: CookbookParser.ListContext): List<String> =
+    list.row().entry().map(::entryToString).sorted()
+
+
+fun entryToString(entry: CookbookParser.EntryContext): String =
     when (entry.text) {
         blank -> blank
         else -> {

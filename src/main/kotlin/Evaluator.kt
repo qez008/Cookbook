@@ -16,110 +16,82 @@ class Evaluator(stream: CharStream) {
     val tree = parser.program()
     val cookbook = visit(tree)
 
-    fun eval(row: Row) = craft(row, cookbook)
-    fun eval(table: Table) = craft(table, cookbook)
+    fun eval(recipe: Recipe) = eval(recipe, cookbook)
 }
 
 
-fun tidyInput(table: Table): Table {
-    fun transform(str: String): String {
-        if (':' !in str) return str
-        val (id, num) = str.split(":")
-        return if (num.toInt() > 1) "$id:$num" else id
-    }
-    return table {
-        for (row in table) {
-            row(*row.map(::transform).toTypedArray())
-        }
-    }
-}
-
-
-fun craft(input: Row, cookbook: CookBook): String {
-    for (entry in cookbook.definitions) {
-        val item = craft(input, entry)
-        if (item != undefined) return item
-    }
-    return undefined
-}
-
-fun craft(input: Row, def: CookBook.Definition): String {
-
-    val recipe = (def.recipe as? ListRecipe)?.value ?: return undefined
-
-    val typeOptions = def.materials
-    val setTypes = mutableMapOf<String, String>()
-
-    fun match(actual: String, expected: String): Boolean =
-        when (expected) {
-            actual -> true
-            in setTypes -> setTypes[expected] == actual
-            in typeOptions -> {
-                if (typeOptions[expected]?.contains(actual) == true) {
-                    setTypes[expected] = actual
-                    true
-                } else false
-            }
-            else -> false
-        }
-
-    val sortedInput = input.items.sorted()
-
-    if ((sortedInput zip recipe).all { (actual, expected) -> match(actual, expected) }) {
-        val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
-        val itemID = def.name
-        return "$itemType$itemID"
-    }
-    return undefined
-}
-
-fun craft(input: Table, cookbook: CookBook): String {
-    val tidyInput = tidyInput(input)
-
+private fun eval(input: Recipe, cookbook: CookBook): String {
     for (def in cookbook.definitions) {
-        val item = craft(tidyInput, def)
+        val item = when (input) {
+            is ListRecipe -> evalList(input, def)
+            is TableRecipe -> evalTable(input, def)
+        }
         if (item != undefined) return item
     }
     return undefined
 }
 
-fun craft(input: Table, entry: CookBook.Definition): String {
+private fun evalList(input: ListRecipe, def: CookBook.Definition): String {
 
-    val recipe = (entry.recipe as? TableRecipe)?.value ?: return undefined
+    val recipe = (def.recipe as? ListRecipe) ?: return undefined
+    if (recipe.size != input.size) return undefined
 
-    val typeOptions = entry.materials
     val setTypes = mutableMapOf<String, String>()
 
+    try {
+        if ((input.items zzip recipe) all { (a, b) -> match(a, b, setTypes, def.materials) }) {
+            val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
+            val itemID = def.name
+            return "$itemType$itemID"
+        }
+    } catch (e: IllegalStateException) {
+        return undefined
+    }
+    return undefined
+}
 
-    for ((expectedRow, actualRow) in recipe zip input) {
-        val diff = (expectedRow.size - actualRow.items.size).coerceAtLeast(0)
-        val padding = List(diff) { "_" }
-        for ((expected, actual) in expectedRow zip (actualRow) + padding) {
-            when (expected) {
-                // if the recipe has a blank so should the input
-                "_" -> {
-                    if (actual != "_") return undefined
-                }
-                // if the type has already been set for expected the actual should match
-                in setTypes -> {
-                    if (setTypes[expected] != actual) return undefined
-                }
-                // if the type has not been set yet, set it to the first
-                // occurrence if the first occurrence is an option
-                in typeOptions -> {
-                    if (typeOptions[expected]?.contains(actual) == true) {
-                        setTypes[expected] = actual
-                    } else {
-                        return undefined
-                    }
-                }
-                else -> {
-                    if (expected != actual) return undefined
-                }
+
+private fun evalTable(input: TableRecipe, def: CookBook.Definition): String {
+
+    val recipe = (def.recipe as? TableRecipe) ?: return undefined
+    if (input.size != recipe.size) return undefined
+
+    val setTypes = mutableMapOf<String, String>()
+
+    try {
+        for ((recipeRow, inputRow) in (recipe zzip input)) {
+            if ((inputRow zzip recipeRow) any { (a, b) -> !match(a, b, setTypes, def.materials) }) {
+                return undefined
             }
         }
+    } catch (e: IllegalArgumentException) {
+        return undefined
     }
+
     val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
-    val itemID = entry.name
+    val itemID = def.name
+
     return "$itemType$itemID"
 }
+
+/**
+ * This function mutates the [setTypes] parameter
+ */
+private fun match(
+    actual: String,
+    expected: String,
+    setTypes: MutableMap<String, String>,
+    materials: Materials
+): Boolean =
+
+    when (expected) {
+        actual -> true
+        in setTypes -> setTypes[expected] == actual
+        in materials -> {
+            if (materials[expected]?.contains(actual) == true) {
+                setTypes[expected] = actual
+                true
+            } else false
+        }
+        else -> false
+    }

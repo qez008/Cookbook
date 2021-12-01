@@ -1,4 +1,4 @@
-import dsl.*
+import dsl.visit
 import gen.CookbookLexer
 import gen.CookbookParser
 import org.antlr.v4.runtime.CharStream
@@ -22,11 +22,9 @@ fun main() {
     val program = program(input)
     val cookbook = visit(program)
     for (entry in cookbook.definitions) {
+        println(entry.name)
         println(entry.materials)
-        when (val recipe = entry.recipe) {
-            is Either.Left -> println(recipe.value)
-            is Either.Right -> println(recipe.value)
-        }
+        println(entry.recipe)
         println("---")
     }
 }

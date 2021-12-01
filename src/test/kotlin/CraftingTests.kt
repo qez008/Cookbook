@@ -13,9 +13,11 @@ class CraftingTests {
     fun `crafting buckets`() {
 
         val bucketA = table {
-            row("wood", "_", "wood")
-            row("wood", "_", "wood")
-            row("_", "wood", "_")
+            row("_", "_", "_", "_", "_")
+            row("_", "wood", "_", "wood", "_")
+            row("_", "wood", "_", "wood", "_")
+            row("_", "_", "wood", "_", "_")
+            row("_", "_", "_", "_", "_")
         }
         val bucketB = table {
             row("iron:1", "_", "iron")
@@ -93,12 +95,13 @@ class CraftingTests {
         }
 
         val axes = listOf(axeA, axeB)
-        val expected = listOf("[dull, stone] Axe", "[sharp, iron] Axe")
+        val expectedAxes = listOf("[dull, stone] Axe", "[sharp, iron] Axe")
 
-        for ((a, e) in axes zip expected) {
-            val item = evaluator.eval(a)
+        for ((axe, expected) in axes zip expectedAxes) {
+            val item = evaluator.eval(axe)
             println(item)
-            assertEquals(e, item)
+            val msg = "\ninput: ${axe.rows.map { it.items }}"
+            assertEquals(msg, expected, item)
         }
     }
 
