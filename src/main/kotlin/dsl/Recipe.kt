@@ -4,6 +4,8 @@ package dsl
  a row of items
  */
 data class Row(val items: List<String>) : Iterable<String> {
+    val size = items.size
+
     override fun iterator(): Iterator<String> = items.iterator()
 }
 

@@ -14,26 +14,41 @@ class Evaluator(stream: CharStream) {
     val tokens = CommonTokenStream(lexer)
     val parser = CookbookParser(tokens)
     val tree = parser.program()
+    val cookbook = visit(tree)
 
-    fun eval(row: Row) = craft(row, tree)
-    fun eval(table: Table) = craft(table, tree)
+    fun eval(row: Row) = craft(row, cookbook)
+    fun eval(table: Table) = craft(table, cookbook)
 }
 
-fun craft(input: Row, program: CookbookParser.ProgramContext): String {
-    for (def in program.definition()) {
-        val item = craft(input, def)
+
+fun tidyInput(table: Table): Table {
+    fun transform(str: String): String {
+        if (':' !in str) return str
+        val (id, num) = str.split(":")
+        return if (num.toInt() > 1) "$id:$num" else id
+    }
+    return table {
+        for (row in table) {
+            row(*row.map(::transform).toTypedArray())
+        }
+    }
+}
+
+
+fun craft(input: Row, cookbook: CookBook): String {
+    for (entry in cookbook.definitions) {
+        val item = craft(input, entry)
         if (item != undefined) return item
     }
     return undefined
 }
 
-fun craft(input: Row, def: CookbookParser.DefinitionContext): String {
-    val listRecipe = def.recipe().list() ?: return undefined
+fun craft(input: Row, def: CookBook.Definition): String {
 
-    val typeOptions = mutableMapOf<String, Set<String>>()
+    val recipe = (def.recipe as? ListRecipe)?.value ?: return undefined
+
+    val typeOptions = def.materials
     val setTypes = mutableMapOf<String, String>()
-
-    fillTypeOptions(def.materials(), typeOptions)
 
     fun match(actual: String, expected: String): Boolean =
         when (expected) {
@@ -48,38 +63,33 @@ fun craft(input: Row, def: CookbookParser.DefinitionContext): String {
             else -> false
         }
 
-    val expectedItems = listRecipe.row().entry().map { it.text }.sorted()
     val sortedInput = input.items.sorted()
 
-    if ((sortedInput zip expectedItems).all { (actual, expected) -> match(actual, expected) }) {
+    if ((sortedInput zip recipe).all { (actual, expected) -> match(actual, expected) }) {
         val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
-        val itemID = def.ID()
+        val itemID = def.name
         return "$itemType$itemID"
     }
     return undefined
 }
 
-fun craft(input: Table, program: CookbookParser.ProgramContext): String {
+fun craft(input: Table, cookbook: CookBook): String {
     val tidyInput = tidyInput(input)
 
-    for (def in program.definition()) {
+    for (def in cookbook.definitions) {
         val item = craft(tidyInput, def)
         if (item != undefined) return item
     }
     return undefined
 }
 
-fun craft(input: Table, def: CookbookParser.DefinitionContext): String {
+fun craft(input: Table, entry: CookBook.Definition): String {
 
-    // return if the definition is a list (and not a table)
-    val table = def.recipe().table() ?: return undefined
+    val recipe = (entry.recipe as? TableRecipe)?.value ?: return undefined
 
-    val typeOptions = mutableMapOf<String, Set<String>>()
+    val typeOptions = entry.materials
     val setTypes = mutableMapOf<String, String>()
 
-    fillTypeOptions(def.materials(), typeOptions)
-
-    val recipe = tidyRecipe(table)
 
     for ((expectedRow, actualRow) in recipe zip input) {
         val diff = (expectedRow.size - actualRow.items.size).coerceAtLeast(0)
@@ -110,50 +120,6 @@ fun craft(input: Table, def: CookbookParser.DefinitionContext): String {
         }
     }
     val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
-    val itemID = def.ID()
+    val itemID = entry.name
     return "$itemType$itemID"
 }
-
-fun fillTypeOptions(
-    maybeMaterials: CookbookParser.MaterialsContext?,
-    typeOptions: MutableMap<String, Set<String>>
-) {
-    maybeMaterials?.let { materials ->
-        val ids = materials.ID()
-        val matTypes = materials.types()
-        // fill type options
-        for ((id, types) in ids zip matTypes) {
-            typeOptions[id.text] = types.ID().map { it.text }.toSet()
-        }
-    }
-}
-
-fun tidyInput(table: Table): Table {
-    fun transform(str: String): String {
-        if (':' !in str) return str
-        val (id, num) = str.split(":")
-        return if (num.toInt() > 1) "$id:$num" else id
-    }
-    return table {
-        for (row in table) {
-            row(*row.map(::transform).toTypedArray())
-        }
-    }
-}
-
-fun tidyRecipe(table: CookbookParser.TableContext): List<List<String>> =
-    table.row().map { row -> row.entry().map(::tidy) }
-
-fun tidyRecipe(list: CookbookParser.ListContext): List<String> =
-    list.row().entry().map(::tidy)
-
-fun tidy(entry: CookbookParser.EntryContext): String =
-    when (entry.text) {
-        blank -> blank
-        else -> {
-            val id = entry.ID()
-            val maybeInt: Int? = entry.Num()?.text?.toIntOrNull()
-            val amount = if (maybeInt != null && maybeInt > 1) ":$maybeInt" else ""
-            "$id$amount"
-        }
-    }

@@ -1,39 +1,41 @@
 package dsl
 
+import blank
 import gen.CookbookParser
 import org.antlr.v4.runtime.tree.TerminalNode
-import tidyRecipe
 
 
 typealias Recipe = Either<Row, Table>
+typealias ListRecipe = Either.Left<Row, Table>
+typealias TableRecipe = Either.Right<Row, Table>
 typealias Materials = Map<String, List<String>>
 
 // helper class
 sealed class Either<out L, out R> {
-    data class Left<L, R>(val left: L) : Either<L, R>()
-    data class Right<L, R>(val right: R) : Either<L, R>()
+    data class Left<L, R>(val value: L) : Either<L, R>()
+    data class Right<L, R>(val value: R) : Either<L, R>()
 }
 
 
-data class CookBook(val entries: List<Entry>) {
-    data class Entry(val name: String, val mats: Materials, val rec: Recipe)
+data class CookBook(val definitions: List<Definition>) {
+    data class Definition(val name: String, val materials: Materials, val recipe: Recipe)
 }
 
 
 // ----------------- DSL functions -----------------
 
-fun cookbook(block: MutableList<CookBook.Entry>.() -> Unit): CookBook {
-    val entries = mutableListOf<CookBook.Entry>()
+fun cookbook(block: MutableList<CookBook.Definition>.() -> Unit): CookBook {
+    val entries = mutableListOf<CookBook.Definition>()
     entries.apply(block)
     return CookBook(entries)
 }
 
 
-fun MutableList<CookBook.Entry>.entry(def: CookbookParser.DefinitionContext) {
+fun MutableList<CookBook.Definition>.entry(def: CookbookParser.DefinitionContext) {
     val name = def.ID().text
     val mats = visit(def.materials())
     val rec = visit(def.recipe())
-    this.add(CookBook.Entry(name, mats, rec))
+    this.add(CookBook.Definition(name, mats, rec))
 }
 
 
@@ -78,3 +80,20 @@ fun visit(list: CookbookParser.ListContext): Recipe {
     val value = list(*tidyRecipe(list).toTypedArray())
     return Either.Left(value)
 }
+
+fun tidyRecipe(table: CookbookParser.TableContext): List<List<String>> =
+    table.row().map { row -> row.entry().map(::tidy) }
+
+fun tidyRecipe(list: CookbookParser.ListContext): List<String> =
+    list.row().entry().map(::tidy).sorted()
+
+fun tidy(entry: CookbookParser.EntryContext): String =
+    when (entry.text) {
+        blank -> blank
+        else -> {
+            val id = entry.ID()
+            val maybeInt: Int? = entry.Num()?.text?.toIntOrNull()
+            val amount = if (maybeInt != null && maybeInt > 1) ":$maybeInt" else ""
+            "$id$amount"
+        }
+    }

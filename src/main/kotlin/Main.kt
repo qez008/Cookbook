@@ -21,11 +21,11 @@ fun main() {
     val input = CharStreams.fromFileName("example.cb")
     val program = program(input)
     val cookbook = visit(program)
-    for (entry in cookbook.entries) {
-        println(entry.mats)
-        when (val recipe = entry.rec) {
-            is Either.Left -> println(recipe.left)
-            is Either.Right -> println(recipe.right)
+    for (entry in cookbook.definitions) {
+        println(entry.materials)
+        when (val recipe = entry.recipe) {
+            is Either.Left -> println(recipe.value)
+            is Either.Right -> println(recipe.value)
         }
         println("---")
     }
