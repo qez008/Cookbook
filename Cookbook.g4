@@ -19,12 +19,20 @@ program : definition+;
 definition : 'item' ID materials? recipe End;
 
 materials : 'mats' (ID ':' types)+ End;
-recipe : list | table;
+recipe : list
+       | table
+       ;
 
 list : 'list' row End;
 table : 'table' (row | (row EndRow)+) End;
 
 row : entry+;
-entry : (Blank | ID | ID':'Num);
 
-types : ID | ((ID TypeSeparator)+ ID);
+entry : Blank
+      | ID
+      | ID':'Num
+      ;
+
+types : ID
+      | ((ID TypeSeparator)+ ID)
+      ;

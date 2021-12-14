@@ -1,3 +1,4 @@
+import dsl.Recipe
 import dsl.TableRecipe
 import dsl.TableRecipe.Row
 import dsl.row
@@ -22,17 +23,17 @@ class TidyTest {
         }
 
         val mutableRows = input
-            .dropWhile { r -> r.all { item -> item == blank } }     // remove leading blank rows
-            .dropLastWhile { r -> r.all { item -> item == blank } } // remove trailing blank rows
+            .dropWhile { r -> r.all { item -> item == Recipe.Blank } }     // remove leading blank rows
+            .dropLastWhile { r -> r.all { item -> item == Recipe.Blank } } // remove trailing blank rows
             .map { it.toMutableList() }                             // convert rows to mutableRows
         // remove leading blank columns
-        while (mutableRows.map { it.first() }.all { it == blank }) {
+        while (mutableRows.map { it.first() }.all { it == Recipe.Blank }) {
             for (row in mutableRows) {
                 row.removeAt(0)
             }
         }
         // remove trailing blank columns
-        while (mutableRows.map { it.last() }.all { it == blank }) {
+        while (mutableRows.map { it.last() }.all { it == Recipe.Blank }) {
             for (row in mutableRows) {
                 row.removeLast()
             }
@@ -55,17 +56,17 @@ class TidyTest {
         }
 
         val mutableRows = input
-            .dropWhile { r -> r.all { item -> item == blank } }     // remove leading blank rows
-            .dropLastWhile { r -> r.all { item -> item == blank } } // remove trailing blank rows
+            .dropWhile { r -> r.all { item -> item == Recipe.Blank } }     // remove leading blank rows
+            .dropLastWhile { r -> r.all { item -> item == Recipe.Blank } } // remove trailing blank rows
             .map { it.toMutableList() }                             // convert rows to mutableRows
         // remove leading blank columns
-        while (mutableRows.map { it.first() }.all { it == blank }) {
+        while (mutableRows.map { it.first() }.all { it == Recipe.Blank }) {
             for (row in mutableRows) {
                 row.removeAt(0)
             }
         }
         // remove trailing blank columns
-        while (mutableRows.map { it.last() }.all { it == blank }) {
+        while (mutableRows.map { it.last() }.all { it == Recipe.Blank }) {
             for (row in mutableRows) {
                 row.removeLast()
             }
@@ -88,17 +89,17 @@ class TidyTest {
         }
 
         val mutableRows = input
-            .dropWhile { r -> r.all { item -> item == blank } }     // remove leading blank rows
-            .dropLastWhile { r -> r.all { item -> item == blank } } // remove trailing blank rows
+            .dropWhile { r -> r.all { item -> item == Recipe.Blank } }     // remove leading blank rows
+            .dropLastWhile { r -> r.all { item -> item == Recipe.Blank } } // remove trailing blank rows
             .map { it.toMutableList() }                             // convert rows to mutableRows
         // remove leading blank columns
-        while (mutableRows.map { it.first() }.all { it == blank }) {
+        while (mutableRows.map { it.first() }.all { it == Recipe.Blank }) {
             for (row in mutableRows) {
                 row.removeAt(0)
             }
         }
         // remove trailing blank columns
-        while (mutableRows.map { it.last() }.all { it == blank }) {
+        while (mutableRows.map { it.last() }.all { it == Recipe.Blank }) {
             for (row in mutableRows) {
                 row.removeLast()
             }

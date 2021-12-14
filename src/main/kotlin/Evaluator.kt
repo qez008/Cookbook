@@ -38,60 +38,69 @@ private fun evalList(input: ListRecipe, def: CookBook.Definition): String {
 
     val setTypes = mutableMapOf<String, String>()
 
-    try {
-        if ((input.items zzip recipe) all { (a, b) -> match(a, b, setTypes, def.materials) }) {
-            val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
-            val itemID = def.name
-            return "$itemType$itemID"
+    return try {
+        val match = (recipe zzip input) all { (expected, actual) ->
+            match(expected, actual, setTypes, def.materials)
         }
+        if (match) item(def, setTypes) else undefined
+
     } catch (e: IllegalStateException) {
-        return undefined
+        // zzip throws an exception if the input and recipe have different lengths
+        undefined
     }
-    return undefined
 }
 
 
 private fun evalTable(input: TableRecipe, def: CookBook.Definition): String {
 
     val recipe = (def.recipe as? TableRecipe) ?: return undefined
-    if (input.size != recipe.size) return undefined
-
     val setTypes = mutableMapOf<String, String>()
 
-    try {
-        for ((recipeRow, inputRow) in (recipe zzip input)) {
-            if ((inputRow zzip recipeRow) any { (a, b) -> !match(a, b, setTypes, def.materials) }) {
-                return undefined
+    return try {
+        val match = (recipe zzip input).all { (recipeRow, inputRow) ->
+            (recipeRow zzip inputRow) all { (expected, actual) ->
+                match(expected, actual, setTypes, def.materials)
             }
         }
-    } catch (e: IllegalArgumentException) {
-        return undefined
-    }
+        if (match) item(def, setTypes) else undefined
 
+    } catch (e: IllegalArgumentException) {
+        // zzip may throw an exception
+        undefined
+    }
+}
+
+fun item(def: CookBook.Definition, setTypes: MutableMap<String, String>): String {
+    // item prefix ex: [Prefix] Item
     val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
     val itemID = def.name
 
     return "$itemType$itemID"
 }
 
+
 /**
  * This function mutates the [setTypes] parameter
  */
 private fun match(
-    actual: String,
-    expected: String,
+    expected: Recipe.Entry,
+    actual: Recipe.Entry,
     setTypes: MutableMap<String, String>,
     materials: Materials
 ): Boolean =
 
-    when (expected) {
-        actual -> true
-        in setTypes -> setTypes[expected] == actual
-        in materials -> {
-            if (materials[expected]?.contains(actual) == true) {
-                setTypes[expected] = actual
-                true
-            } else false
+    if (expected.num > actual.num) {
+        false
+    } else {
+        when (expected.id) {
+            in setTypes -> setTypes[expected.id] == actual.id
+            in materials -> {
+                if (materials[expected.id]!!.contains(actual.id)) {
+                    setTypes[expected.id] = actual.id
+                    true
+                } else false
+            }
+            actual.id -> true
+            else -> false
         }
-        else -> false
     }

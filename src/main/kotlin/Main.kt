@@ -21,6 +21,7 @@ fun main() {
     val input = CharStreams.fromFileName("example.cb")
     val program = program(input)
     val cookbook = visit(program)
+
     for (entry in cookbook.definitions) {
         println(entry.name)
         println(entry.materials)

@@ -10,6 +10,7 @@ typealias Materials = Map<String, List<String>>
 
 data class CookBook(val definitions: List<Definition>) {
     data class Definition(val name: String, val materials: Materials, val recipe: Recipe)
+
 }
 
 
@@ -22,7 +23,7 @@ fun cookbook(block: MutableList<CookBook.Definition>.() -> Unit): CookBook {
 }
 
 
-fun MutableList<CookBook.Definition>.entry(def: CookbookParser.DefinitionContext) {
+fun MutableList<CookBook.Definition>.addDefinition(def: CookbookParser.DefinitionContext) {
     val name = def.ID().text
     val mats = visit(def.materials())
     val rec = visit(def.recipe())
@@ -35,7 +36,7 @@ fun MutableList<CookBook.Definition>.entry(def: CookbookParser.DefinitionContext
 fun visit(program: CookbookParser.ProgramContext): CookBook {
     return cookbook {
         for (def in program.definition()) {
-            entry(def)
+            addDefinition(def)
         }
     }
 }
@@ -81,8 +82,10 @@ fun entryToString(entry: CookbookParser.EntryContext): String =
         blank -> blank
         else -> {
             val id = entry.ID()
-            val maybeInt: Int? = entry.Num()?.text?.toIntOrNull()
-            val amount = if (maybeInt != null && maybeInt > 1) ":$maybeInt" else ""
-            "$id$amount"
+            when (val num = entry.Num()) {
+                null -> "$id"
+                else -> "$id" amount (num.text.toIntOrNull()
+                    ?: error("num is not an int in ${entry.text}"))
+            }
         }
     }

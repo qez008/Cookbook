@@ -12,33 +12,38 @@ class CraftingTests {
     @Test
     fun `crafting buckets`() {
 
-        val bucketA = table {
+        val woodenBucket = table {
             row("_", "_", "_", "_", "_")
             row("_", "wood", "_", "wood", "_")
             row("_", "wood", "_", "wood", "_")
-            row("_", "_", "wood", "_", "_")
+            row("_", "_", "wood:2", "_", "_")
             row("_", "_", "_", "_", "_")
         }
-        val bucketB = table {
+        val ironBucket = table {
             row("iron:1", "_", "iron")
             row("iron", "_", "iron:1")
-            row("_", "iron", "_")
+            row("_", "iron:3", "_")
         }
-        val bucketC = table {
+        val woodenIronBucket = table {
             row("iron", "_", "iron")
             row("iron", "_", "iron")
             row("_", "wood:1", "_")
         }
-        val bucketD = table {
-            row("gold", "_", "iron")
-            row("iron", "_", "iron")
-            row("_", "wood", "_")
+        val goldenBucket = table {
+            row("gold", "_", "gold")
+            row("gold", "_", "gold")
+            row("_", "gold:2", "_")
+        }
+        val halfABucket = table {
+            row("wood", "_")
+            row("wood", "_")
+            row("_", "wood:2")
         }
 
-        val buckets = listOf(bucketA, bucketB, bucketC, bucketD)
-        val expected = listOf("[wood] Bucket", "[iron] Bucket", "undefined", "undefined")
+        val buckets = listOf(woodenBucket, ironBucket, woodenIronBucket, goldenBucket, halfABucket)
+        val expected = listOf("[wood] Bucket", "[iron] Bucket", undefined, undefined, undefined)
 
-        for ((b, e) in buckets zip expected) {
+        for ((b, e) in buckets zzip expected) {
             val item = evaluator.eval(b)
             println(item)
             assertEquals(e, item)
@@ -63,15 +68,15 @@ class CraftingTests {
             row("hilt")
         }
         val swordD = table {
-            row("stone")
-            row("stone")
+            row("blade")
+            row("blade")
             row("hilt")
         }
 
         val swords = listOf(swordA, swordB, swordC, swordD)
-        val expected = listOf("[wood] Sword", "undefined", "undefined", "[stone] Sword")
+        val expected = listOf("[wood] Sword", undefined, undefined, undefined)
 
-        for ((s, e) in swords zip expected) {
+        for ((s, e) in swords zzip expected) {
             val item = evaluator.eval(s)
             println(item)
             assertEquals(e, item)
@@ -97,7 +102,7 @@ class CraftingTests {
         val axes = listOf(axeA, axeB)
         val expectedAxes = listOf("[dull, stone] Axe", "[sharp, iron] Axe")
 
-        for ((axe, expected) in axes zip expectedAxes) {
+        for ((axe, expected) in axes zzip expectedAxes) {
             val item = evaluator.eval(axe)
             println(item)
             val msg = "\ninput: ${axe.rows.map { it.items }}"
@@ -130,10 +135,10 @@ class CraftingTests {
             row("wood")
         }
 
-        val expected = listOf("[wood] Stairs", "[stone] Stairs", "undefined", "undefined")
+        val expected = listOf("[wood] Stairs", "[stone] Stairs", undefined, undefined)
         val stairs = listOf(stairA, stairB, stairC, stairD)
 
-        for ((e, s) in expected zip stairs) {
+        for ((e, s) in expected zzip stairs) {
             val result = evaluator.eval(s)
             println(result)
             assertEquals(e, result)
@@ -152,9 +157,9 @@ class CraftingTests {
         val bookF = list("leather", "paper:3")
 
         val books = listOf(bookA, bookB, bookC, bookD, bookE, bookF)
-        val expected = list("Book", "Book", "Book", "Book", "BookAlt", "BookAlt")
+        val expected = listOf("Book", "Book", "Book", "Book", "BookAlt", "BookAlt")
 
-        for ((b, e) in books zip expected) {
+        for ((b, e) in books zzip expected) {
             val result = evaluator.eval(b)
             println(result)
             assertEquals(e, result)
@@ -168,13 +173,23 @@ class CraftingTests {
         val sandwichC = list("bread", "bread", "chicken", "salad")
         val sandwichD = list("bread", "bread", "wood", "salad")
 
-        val expected = listOf("[pepperoni] Sandwich", "[ham] Sandwich", "[chicken] Sandwich", "undefined")
+        val expected = listOf("[pepperoni] Sandwich", "[ham] Sandwich", "[chicken] Sandwich", undefined)
         val sandwiches = listOf(sandwichA, sandwichB, sandwichC, sandwichD)
 
-        for ((s, e) in sandwiches zip expected) {
+        for ((s, e) in sandwiches zzip expected) {
             val result = evaluator.eval(s)
             println(result)
             assertEquals(e, result)
         }
+    }
+
+    @Test
+    fun `crafting slabs`(){
+
+        val slabA = table { row("stone", "stone", "stone") }
+
+        val result = evaluator.eval(slabA)
+        println(result)
+        assertEquals("Slab", result)
     }
 }
