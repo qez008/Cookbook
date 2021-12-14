@@ -1,4 +1,5 @@
 import dsl.*
+import dsl.Recipe.Entry
 import gen.CookbookLexer
 import gen.CookbookParser
 import org.antlr.v4.runtime.CharStream
@@ -7,6 +8,8 @@ import org.antlr.v4.runtime.CommonTokenStream
 
 const val undefined = "undefined"
 const val blank = "_"
+
+typealias Types = MutableMap<String, String>
 
 class Evaluator(stream: CharStream) {
 
@@ -21,6 +24,7 @@ class Evaluator(stream: CharStream) {
 
 
 private fun eval(input: Recipe, cookbook: CookBook): String {
+
     for (def in cookbook.definitions) {
         val item = when (input) {
             is ListRecipe -> evalList(input, def)
@@ -34,20 +38,12 @@ private fun eval(input: Recipe, cookbook: CookBook): String {
 private fun evalList(input: ListRecipe, def: CookBook.Definition): String {
 
     val recipe = (def.recipe as? ListRecipe) ?: return undefined
-    if (recipe.size != input.size) return undefined
 
     val setTypes = mutableMapOf<String, String>()
 
-    return try {
-        val match = (recipe zzip input) all { (expected, actual) ->
-            match(expected, actual, setTypes, def.materials)
-        }
-        if (match) item(def, setTypes) else undefined
+    val match = (recipe zzip input) all { (expected, actual) -> match(expected, actual, setTypes, def.materials) }
 
-    } catch (e: IllegalStateException) {
-        // zzip throws an exception if the input and recipe have different lengths
-        undefined
-    }
+    return if (match) item(def, setTypes) else undefined
 }
 
 
@@ -56,21 +52,15 @@ private fun evalTable(input: TableRecipe, def: CookBook.Definition): String {
     val recipe = (def.recipe as? TableRecipe) ?: return undefined
     val setTypes = mutableMapOf<String, String>()
 
-    return try {
-        val match = (recipe zzip input).all { (recipeRow, inputRow) ->
-            (recipeRow zzip inputRow) all { (expected, actual) ->
-                match(expected, actual, setTypes, def.materials)
-            }
+    val match = (recipe zzip input) all { (recipeRow, inputRow) ->
+        (recipeRow zzip inputRow) all { (expected, actual) ->
+            match(expected, actual, setTypes, def.materials)
         }
-        if (match) item(def, setTypes) else undefined
-
-    } catch (e: IllegalArgumentException) {
-        // zzip may throw an exception
-        undefined
     }
+    return if (match) item(def, setTypes) else undefined
 }
 
-fun item(def: CookBook.Definition, setTypes: MutableMap<String, String>): String {
+fun item(def: CookBook.Definition, setTypes: Types): String {
     // item prefix ex: [Prefix] Item
     val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
     val itemID = def.name
@@ -82,12 +72,7 @@ fun item(def: CookBook.Definition, setTypes: MutableMap<String, String>): String
 /**
  * This function mutates the [setTypes] parameter
  */
-private fun match(
-    expected: Recipe.Entry,
-    actual: Recipe.Entry,
-    setTypes: MutableMap<String, String>,
-    materials: Materials
-): Boolean =
+private fun match(expected: Entry, actual: Entry, setTypes: Types, materials: Materials): Boolean =
 
     if (expected.num > actual.num) {
         false

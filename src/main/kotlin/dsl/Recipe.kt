@@ -1,32 +1,38 @@
 package dsl
 
 import blank
+import dsl.Recipe.Entry
+import dsl.TableRecipe.Row
+
 
 sealed class Recipe {
 
     open class Entry(val id: String, val num: Int = 1) : Comparable<Entry> {
+
         init {
             assert(num >= 1)
         }
 
-        override fun compareTo(other: Entry): Int = this.id.compareTo(other.id)
+        override fun compareTo(other: Entry) = this.id.compareTo(other.id)
 
-        override fun toString(): String = if (num == 1) id else "$id:$num"
+        override fun toString() = if (num == 1) id else "$id:$num"
 
-        override fun equals(other: Any?): Boolean = other is Entry && this.id == other.id && this.num == other.num
+        override fun equals(other: Any?) = other is Entry && this.id == other.id && this.num == other.num
+
+        override fun hashCode() = 31 * id.hashCode() + num
+
     }
 
-    object Blank : Entry("_")
+    object Blank : Entry(blank)
 
 }
 
-/*
- a list of items
- */
-data class ListRecipe(val items: List<Entry>) : Recipe(), Collection<Recipe.Entry>, Iterable<Recipe.Entry> {
+
+data class ListRecipe(val items: List<Entry>) : Recipe(), Collection<Entry>, Iterable<Entry> {
+
     override val size = items.size
 
-    override fun iterator(): Iterator<Entry> = items.iterator()
+    override fun iterator() = items.iterator()
 
     override fun contains(element: Entry) = items.contains(element)
 
@@ -35,15 +41,11 @@ data class ListRecipe(val items: List<Entry>) : Recipe(), Collection<Recipe.Entr
     override fun isEmpty() = items.isEmpty()
 }
 
-/*
- a table of rows
- */
-data class TableRecipe(val rows: List<Row>) : Recipe(), Collection<TableRecipe.Row>, Iterable<TableRecipe.Row> {
 
-    /*
-     a row of items
-     */
+data class TableRecipe(val rows: List<Row>) : Recipe(), Collection<Row>, Iterable<Row> {
+
     data class Row(val items: List<Entry>) : Collection<Entry>, Iterable<Entry> {
+
         override val size = items.size
 
         override fun iterator(): Iterator<Entry> = items.iterator()
@@ -66,16 +68,34 @@ data class TableRecipe(val rows: List<Row>) : Recipe(), Collection<TableRecipe.R
     override fun isEmpty() = rows.isEmpty()
 }
 
-fun entry(str: String): Recipe.Entry =
+fun entry(str: String): Entry =
     if (':' in str) {
         val (id, num) = str.split(":")
-        Recipe.Entry(id, num.toInt())
+        Entry(id, num.toInt())
     } else {
-        Recipe.Entry(str)
+        Entry(str)
     }
 
 
-fun tidyRows(rows: List<TableRecipe.Row>): List<TableRecipe.Row> {
+/*
+ creates a list (row) of items
+ */
+fun list(vararg items: String) = ListRecipe(items.filter { it != blank }.map(::entry).sorted())
+
+
+/*
+ creates a table and applies a block to the input list
+ */
+fun table(block: MutableList<Row>.() -> Unit): TableRecipe {
+
+    val rows = mutableListOf<Row>().apply(block)
+    val tidyRows = tidyTable(rows)
+
+    return TableRecipe(tidyRows)
+}
+
+
+fun tidyTable(rows: List<Row>): List<Row> {
 
     // pad to the longest length row
     val longestRow = rows.maxOf { it.size }
@@ -108,28 +128,10 @@ fun tidyRows(rows: List<TableRecipe.Row>): List<TableRecipe.Row> {
 
 
 /*
- creates a list (row) of items
- */
-fun list(vararg items: String) = ListRecipe(items.filter { it != blank }.map(::entry).sorted())
-
-
-/*
- creates a table and applies a block to the input list
- */
-fun table(block: MutableList<TableRecipe.Row>.() -> Unit): TableRecipe {
-
-    val rows = mutableListOf<TableRecipe.Row>().apply(block)
-    val tidyRows = tidyRows(rows)
-
-    return TableRecipe(tidyRows)
-}
-
-
-/*
  creates and adds a row of items
  */
-fun MutableList<TableRecipe.Row>.row(vararg items: String) {
-    add(TableRecipe.Row(items.map(::entry)))
+fun MutableList<Row>.row(vararg items: String) {
+    add(Row(items.map(::entry)))
 }
 
 infix fun String.amount(num: Int): String =
@@ -141,8 +143,9 @@ infix fun String.amount(num: Int): String =
     }
 
 
-// simple main function for sanity testing
+// simple main function for example
 fun main() {
+
     val t = table {
         row("wood" amount 10, "_", "wood")
         row("wood" amount 1, "_", "wood:1")

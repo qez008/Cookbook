@@ -32,7 +32,7 @@ class RecipeTest {
             table { row("a"); row("b"); row("c") }
         )
 
-        for ((expected, table) in expectedTables zzip tables) {
+        for ((expected, table) in (expectedTables zzip tables) ?: zzipError()) {
             assertEquals(expected, table)
         }
     }

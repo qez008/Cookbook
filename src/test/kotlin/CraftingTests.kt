@@ -43,12 +43,13 @@ class CraftingTests {
         val buckets = listOf(woodenBucket, ironBucket, woodenIronBucket, goldenBucket, halfABucket)
         val expected = listOf("[wood] Bucket", "[iron] Bucket", undefined, undefined, undefined)
 
-        for ((b, e) in buckets zzip expected) {
+        for ((b, e) in (buckets zzip expected) ?: zzipError()) {
             val item = evaluator.eval(b)
             println(item)
             assertEquals(e, item)
         }
     }
+
 
     @Test
     fun `crafting swords`() {
@@ -76,7 +77,7 @@ class CraftingTests {
         val swords = listOf(swordA, swordB, swordC, swordD)
         val expected = listOf("[wood] Sword", undefined, undefined, undefined)
 
-        for ((s, e) in swords zzip expected) {
+        for ((s, e) in (swords zzip expected) ?: zzipError()) {
             val item = evaluator.eval(s)
             println(item)
             assertEquals(e, item)
@@ -102,7 +103,7 @@ class CraftingTests {
         val axes = listOf(axeA, axeB)
         val expectedAxes = listOf("[dull, stone] Axe", "[sharp, iron] Axe")
 
-        for ((axe, expected) in axes zzip expectedAxes) {
+        for ((axe, expected) in (axes zzip expectedAxes) ?: zzipError()) {
             val item = evaluator.eval(axe)
             println(item)
             val msg = "\ninput: ${axe.rows.map { it.items }}"
@@ -138,7 +139,7 @@ class CraftingTests {
         val expected = listOf("[wood] Stairs", "[stone] Stairs", undefined, undefined)
         val stairs = listOf(stairA, stairB, stairC, stairD)
 
-        for ((e, s) in expected zzip stairs) {
+        for ((e, s) in (expected zzip stairs) ?: zzipError()) {
             val result = evaluator.eval(s)
             println(result)
             assertEquals(e, result)
@@ -159,7 +160,7 @@ class CraftingTests {
         val books = listOf(bookA, bookB, bookC, bookD, bookE, bookF)
         val expected = listOf("Book", "Book", "Book", "Book", "BookAlt", "BookAlt")
 
-        for ((b, e) in books zzip expected) {
+        for ((b, e) in (books zzip expected) ?: zzipError()) {
             val result = evaluator.eval(b)
             println(result)
             assertEquals(e, result)
@@ -176,7 +177,7 @@ class CraftingTests {
         val expected = listOf("[pepperoni] Sandwich", "[ham] Sandwich", "[chicken] Sandwich", undefined)
         val sandwiches = listOf(sandwichA, sandwichB, sandwichC, sandwichD)
 
-        for ((s, e) in sandwiches zzip expected) {
+        for ((s, e) in sandwiches zzip expected ?: zzipError()) {
             val result = evaluator.eval(s)
             println(result)
             assertEquals(e, result)
@@ -184,7 +185,7 @@ class CraftingTests {
     }
 
     @Test
-    fun `crafting slabs`(){
+    fun `crafting slabs`() {
 
         val slabA = table { row("stone", "stone", "stone") }
 
