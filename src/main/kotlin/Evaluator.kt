@@ -13,7 +13,7 @@ typealias Types = MutableMap<String, String>
 
 class Evaluator(stream: CharStream) {
 
-    private val cookbook: CookBook
+    private val cookbook: Cookbook
 
     init {
         val lexer = CookbookLexer(stream)
@@ -28,7 +28,7 @@ class Evaluator(stream: CharStream) {
 }
 
 
-private fun eval(input: Recipe, cookbook: CookBook): String {
+private fun eval(input: Recipe, cookbook: Cookbook): String {
 
     for (def in cookbook.definitions) {
         val item = when (input) {
@@ -40,7 +40,7 @@ private fun eval(input: Recipe, cookbook: CookBook): String {
     return undefined
 }
 
-private fun evalList(input: ListRecipe, def: CookBook.Definition): String {
+private fun evalList(input: ListRecipe, def: Cookbook.Definition): String {
 
     val recipe = (def.recipe as? ListRecipe) ?: return undefined
 
@@ -54,7 +54,7 @@ private fun evalList(input: ListRecipe, def: CookBook.Definition): String {
 }
 
 
-private fun evalTable(input: TableRecipe, def: CookBook.Definition): String {
+private fun evalTable(input: TableRecipe, def: Cookbook.Definition): String {
 
     val recipe = (def.recipe as? TableRecipe) ?: return undefined
     val setTypes = mutableMapOf<String, String>()
@@ -67,7 +67,7 @@ private fun evalTable(input: TableRecipe, def: CookBook.Definition): String {
     return if (match) result(def, setTypes) else undefined
 }
 
-fun result(def: CookBook.Definition, setTypes: Types): String {
+fun result(def: Cookbook.Definition, setTypes: Types): String {
     // item prefix ex: [Prefix] Item
     val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
     val itemID = def.name

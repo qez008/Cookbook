@@ -3,7 +3,6 @@ grammar Cookbook;
 
 WS : [ \t\n]+ -> skip ;
 
-EndRow : ',';
 End : 'end';
 
 ID : [a-zA-Z][a-zA-Z0-9]*;
@@ -12,27 +11,24 @@ Blank : '_';
 Num : '0' | [1-9][0-9]*;
 Str : '\'' .+? '\'';
 
-TypeSeparator : '/';
 
 program : definition+;
 
 definition : 'item' ID materials? recipe End;
 
 materials : 'mats' (ID ':' types)+ End;
-recipe : list
-       | table
-       ;
 
-list : 'list' row End;
-table : 'table' (row | (row EndRow)+) End;
+recipe : 'list' row End 					#list
+       | 'table' (row | (row ',')+) End 	#table
+       ;
 
 row : entry+;
 
-entry : Blank
-      | ID
-      | ID':'Num
+entry : Blank 		# blank
+      | ID			# id
+      | ID':'Num	# idAndNum
       ;
 
 types : ID
-      | ((ID TypeSeparator)+ ID)
+      | ((ID '/')+ ID)
       ;

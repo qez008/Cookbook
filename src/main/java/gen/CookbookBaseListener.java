@@ -52,18 +52,6 @@ public class CookbookBaseListener implements CookbookListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRecipe(CookbookParser.RecipeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRecipe(CookbookParser.RecipeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterList(CookbookParser.ListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -100,13 +88,37 @@ public class CookbookBaseListener implements CookbookListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEntry(CookbookParser.EntryContext ctx) { }
+	@Override public void enterBlank(CookbookParser.BlankContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEntry(CookbookParser.EntryContext ctx) { }
+	@Override public void exitBlank(CookbookParser.BlankContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId(CookbookParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId(CookbookParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdAndNum(CookbookParser.IdAndNumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdAndNum(CookbookParser.IdAndNumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

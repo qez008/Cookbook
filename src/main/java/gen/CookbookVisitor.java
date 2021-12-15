@@ -29,19 +29,15 @@ public interface CookbookVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMaterials(CookbookParser.MaterialsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CookbookParser#recipe}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRecipe(CookbookParser.RecipeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CookbookParser#list}.
+	 * Visit a parse tree produced by the {@code list}
+	 * labeled alternative in {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitList(CookbookParser.ListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CookbookParser#table}.
+	 * Visit a parse tree produced by the {@code table}
+	 * labeled alternative in {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -53,11 +49,26 @@ public interface CookbookVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRow(CookbookParser.RowContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CookbookParser#entry}.
+	 * Visit a parse tree produced by the {@code blank}
+	 * labeled alternative in {@link CookbookParser#entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEntry(CookbookParser.EntryContext ctx);
+	T visitBlank(CookbookParser.BlankContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code id}
+	 * labeled alternative in {@link CookbookParser#entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId(CookbookParser.IdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code idAndNum}
+	 * labeled alternative in {@link CookbookParser#entry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdAndNum(CookbookParser.IdAndNumContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CookbookParser#types}.
 	 * @param ctx the parse tree

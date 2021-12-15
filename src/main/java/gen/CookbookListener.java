@@ -38,32 +38,26 @@ public interface CookbookListener extends ParseTreeListener {
 	 */
 	void exitMaterials(CookbookParser.MaterialsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CookbookParser#recipe}.
-	 * @param ctx the parse tree
-	 */
-	void enterRecipe(CookbookParser.RecipeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CookbookParser#recipe}.
-	 * @param ctx the parse tree
-	 */
-	void exitRecipe(CookbookParser.RecipeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CookbookParser#list}.
+	 * Enter a parse tree produced by the {@code list}
+	 * labeled alternative in {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
 	 */
 	void enterList(CookbookParser.ListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CookbookParser#list}.
+	 * Exit a parse tree produced by the {@code list}
+	 * labeled alternative in {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
 	 */
 	void exitList(CookbookParser.ListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CookbookParser#table}.
+	 * Enter a parse tree produced by the {@code table}
+	 * labeled alternative in {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
 	 */
 	void enterTable(CookbookParser.TableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CookbookParser#table}.
+	 * Exit a parse tree produced by the {@code table}
+	 * labeled alternative in {@link CookbookParser#recipe}.
 	 * @param ctx the parse tree
 	 */
 	void exitTable(CookbookParser.TableContext ctx);
@@ -78,15 +72,41 @@ public interface CookbookListener extends ParseTreeListener {
 	 */
 	void exitRow(CookbookParser.RowContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CookbookParser#entry}.
+	 * Enter a parse tree produced by the {@code blank}
+	 * labeled alternative in {@link CookbookParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterEntry(CookbookParser.EntryContext ctx);
+	void enterBlank(CookbookParser.BlankContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CookbookParser#entry}.
+	 * Exit a parse tree produced by the {@code blank}
+	 * labeled alternative in {@link CookbookParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitEntry(CookbookParser.EntryContext ctx);
+	void exitBlank(CookbookParser.BlankContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code id}
+	 * labeled alternative in {@link CookbookParser#entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(CookbookParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code id}
+	 * labeled alternative in {@link CookbookParser#entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(CookbookParser.IdContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code idAndNum}
+	 * labeled alternative in {@link CookbookParser#entry}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdAndNum(CookbookParser.IdAndNumContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code idAndNum}
+	 * labeled alternative in {@link CookbookParser#entry}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdAndNum(CookbookParser.IdAndNumContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CookbookParser#types}.
 	 * @param ctx the parse tree

@@ -17,30 +17,29 @@ public class CookbookParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, WS=6, EndRow=7, End=8, ID=9, Blank=10, 
-		Num=11, Str=12, TypeSeparator=13;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, WS=8, End=9, ID=10, 
+		Blank=11, Num=12, Str=13;
 	public static final int
 		RULE_program = 0, RULE_definition = 1, RULE_materials = 2, RULE_recipe = 3, 
-		RULE_list = 4, RULE_table = 5, RULE_row = 6, RULE_entry = 7, RULE_types = 8;
+		RULE_row = 4, RULE_entry = 5, RULE_types = 6;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "definition", "materials", "recipe", "list", "table", "row", 
-			"entry", "types"
+			"program", "definition", "materials", "recipe", "row", "entry", "types"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'item'", "'mats'", "':'", "'list'", "'table'", null, "','", "'end'", 
-			null, "'_'", null, null, "'/'"
+			null, "'item'", "'mats'", "':'", "'list'", "'table'", "','", "'/'", null, 
+			"'end'", null, "'_'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, "WS", "EndRow", "End", "ID", "Blank", 
-			"Num", "Str", "TypeSeparator"
+			null, null, null, null, null, null, null, null, "WS", "End", "ID", "Blank", 
+			"Num", "Str"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -127,17 +126,17 @@ public class CookbookParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(19); 
+			setState(15); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(18);
+				setState(14);
 				definition();
 				}
 				}
-				setState(21); 
+				setState(17); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__0 );
@@ -189,23 +188,23 @@ public class CookbookParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(23);
+			setState(19);
 			match(T__0);
-			setState(24);
+			setState(20);
 			match(ID);
-			setState(26);
+			setState(22);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__1) {
 				{
-				setState(25);
+				setState(21);
 				materials();
 				}
 			}
 
-			setState(28);
+			setState(24);
 			recipe();
-			setState(29);
+			setState(25);
 			match(End);
 			}
 		}
@@ -258,27 +257,27 @@ public class CookbookParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(31);
+			setState(27);
 			match(T__1);
-			setState(35); 
+			setState(31); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(32);
+				setState(28);
 				match(ID);
-				setState(33);
+				setState(29);
 				match(T__2);
-				setState(34);
+				setState(30);
 				types();
 				}
 				}
-				setState(37); 
+				setState(33); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID );
-			setState(39);
+			setState(35);
 			match(End);
 			}
 		}
@@ -294,76 +293,22 @@ public class CookbookParser extends Parser {
 	}
 
 	public static class RecipeContext extends ParserRuleContext {
-		public ListContext list() {
-			return getRuleContext(ListContext.class,0);
-		}
-		public TableContext table() {
-			return getRuleContext(TableContext.class,0);
-		}
 		public RecipeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_recipe; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterRecipe(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitRecipe(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitRecipe(this);
-			else return visitor.visitChildren(this);
+	 
+		public RecipeContext() { }
+		public void copyFrom(RecipeContext ctx) {
+			super.copyFrom(ctx);
 		}
 	}
-
-	public final RecipeContext recipe() throws RecognitionException {
-		RecipeContext _localctx = new RecipeContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_recipe);
-		try {
-			setState(43);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case T__3:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(41);
-				list();
-				}
-				break;
-			case T__4:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(42);
-				table();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ListContext extends ParserRuleContext {
+	public static class ListContext extends RecipeContext {
 		public RowContext row() {
 			return getRuleContext(RowContext.class,0);
 		}
 		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
-		public ListContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_list; }
+		public ListContext(RecipeContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterList(this);
@@ -378,33 +323,7 @@ public class CookbookParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-
-	public final ListContext list() throws RecognitionException {
-		ListContext _localctx = new ListContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_list);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(45);
-			match(T__3);
-			setState(46);
-			row();
-			setState(47);
-			match(End);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class TableContext extends ParserRuleContext {
+	public static class TableContext extends RecipeContext {
 		public TerminalNode End() { return getToken(CookbookParser.End, 0); }
 		public List<RowContext> row() {
 			return getRuleContexts(RowContext.class);
@@ -412,14 +331,7 @@ public class CookbookParser extends Parser {
 		public RowContext row(int i) {
 			return getRuleContext(RowContext.class,i);
 		}
-		public List<TerminalNode> EndRow() { return getTokens(CookbookParser.EndRow); }
-		public TerminalNode EndRow(int i) {
-			return getToken(CookbookParser.EndRow, i);
-		}
-		public TableContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_table; }
+		public TableContext(RecipeContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterTable(this);
@@ -435,47 +347,68 @@ public class CookbookParser extends Parser {
 		}
 	}
 
-	public final TableContext table() throws RecognitionException {
-		TableContext _localctx = new TableContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_table);
+	public final RecipeContext recipe() throws RecognitionException {
+		RecipeContext _localctx = new RecipeContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_recipe);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(49);
-			match(T__4);
-			setState(58);
+			setState(54);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
-			case 1:
+			switch (_input.LA(1)) {
+			case T__3:
+				_localctx = new ListContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
-				setState(50);
+				setState(37);
+				match(T__3);
+				setState(38);
 				row();
+				setState(39);
+				match(End);
 				}
 				break;
-			case 2:
+			case T__4:
+				_localctx = new TableContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(54); 
+				setState(41);
+				match(T__4);
+				setState(50);
 				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
+				switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+				case 1:
 					{
-					{
-					setState(51);
+					setState(42);
 					row();
-					setState(52);
-					match(EndRow);
 					}
-					}
-					setState(56); 
+					break;
+				case 2:
+					{
+					setState(46); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( _la==ID || _la==Blank );
+					do {
+						{
+						{
+						setState(43);
+						row();
+						setState(44);
+						match(T__5);
+						}
+						}
+						setState(48); 
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+					} while ( _la==ID || _la==Blank );
+					}
+					break;
+				}
+				setState(52);
+				match(End);
 				}
 				break;
-			}
-			setState(60);
-			match(End);
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -517,22 +450,22 @@ public class CookbookParser extends Parser {
 
 	public final RowContext row() throws RecognitionException {
 		RowContext _localctx = new RowContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_row);
+		enterRule(_localctx, 8, RULE_row);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63); 
+			setState(57); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(62);
+				setState(56);
 				entry();
 				}
 				}
-				setState(65); 
+				setState(59); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID || _la==Blank );
@@ -550,60 +483,104 @@ public class CookbookParser extends Parser {
 	}
 
 	public static class EntryContext extends ParserRuleContext {
-		public TerminalNode Blank() { return getToken(CookbookParser.Blank, 0); }
-		public TerminalNode ID() { return getToken(CookbookParser.ID, 0); }
-		public TerminalNode Num() { return getToken(CookbookParser.Num, 0); }
 		public EntryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_entry; }
+	 
+		public EntryContext() { }
+		public void copyFrom(EntryContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class BlankContext extends EntryContext {
+		public TerminalNode Blank() { return getToken(CookbookParser.Blank, 0); }
+		public BlankContext(EntryContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterEntry(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterBlank(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitEntry(this);
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitBlank(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitEntry(this);
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitBlank(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IdAndNumContext extends EntryContext {
+		public TerminalNode ID() { return getToken(CookbookParser.ID, 0); }
+		public TerminalNode Num() { return getToken(CookbookParser.Num, 0); }
+		public IdAndNumContext(EntryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterIdAndNum(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitIdAndNum(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitIdAndNum(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IdContext extends EntryContext {
+		public TerminalNode ID() { return getToken(CookbookParser.ID, 0); }
+		public IdContext(EntryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).enterId(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CookbookListener ) ((CookbookListener)listener).exitId(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CookbookVisitor ) return ((CookbookVisitor<? extends T>)visitor).visitId(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
 	public final EntryContext entry() throws RecognitionException {
 		EntryContext _localctx = new EntryContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_entry);
+		enterRule(_localctx, 10, RULE_entry);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(72);
+			setState(66);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
+				_localctx = new BlankContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
-				setState(67);
+				setState(61);
 				match(Blank);
 				}
 				break;
 			case 2:
+				_localctx = new IdContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(68);
+				setState(62);
 				match(ID);
 				}
 				break;
 			case 3:
+				_localctx = new IdAndNumContext(_localctx);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(69);
+				setState(63);
 				match(ID);
-				setState(70);
+				setState(64);
 				match(T__2);
-				setState(71);
+				setState(65);
 				match(Num);
 				}
 				break;
-			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -621,10 +598,6 @@ public class CookbookParser extends Parser {
 		public List<TerminalNode> ID() { return getTokens(CookbookParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(CookbookParser.ID, i);
-		}
-		public List<TerminalNode> TypeSeparator() { return getTokens(CookbookParser.TypeSeparator); }
-		public TerminalNode TypeSeparator(int i) {
-			return getToken(CookbookParser.TypeSeparator, i);
 		}
 		public TypesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -647,16 +620,16 @@ public class CookbookParser extends Parser {
 
 	public final TypesContext types() throws RecognitionException {
 		TypesContext _localctx = new TypesContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_types);
+		enterRule(_localctx, 12, RULE_types);
 		try {
 			int _alt;
-			setState(82);
+			setState(76);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(68);
 				match(ID);
 				}
 				break;
@@ -664,7 +637,7 @@ public class CookbookParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(77); 
+				setState(71); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -672,21 +645,21 @@ public class CookbookParser extends Parser {
 					case 1:
 						{
 						{
-						setState(75);
+						setState(69);
 						match(ID);
-						setState(76);
-						match(TypeSeparator);
+						setState(70);
+						match(T__6);
 						}
 						}
 						break;
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(79); 
+					setState(73); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-				setState(81);
+				setState(75);
 				match(ID);
 				}
 				}
@@ -705,28 +678,27 @@ public class CookbookParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17W\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\6\2\26"+
-		"\n\2\r\2\16\2\27\3\3\3\3\3\3\5\3\35\n\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\6"+
-		"\4&\n\4\r\4\16\4\'\3\4\3\4\3\5\3\5\5\5.\n\5\3\6\3\6\3\6\3\6\3\7\3\7\3"+
-		"\7\3\7\3\7\6\79\n\7\r\7\16\7:\5\7=\n\7\3\7\3\7\3\b\6\bB\n\b\r\b\16\bC"+
-		"\3\t\3\t\3\t\3\t\3\t\5\tK\n\t\3\n\3\n\3\n\6\nP\n\n\r\n\16\nQ\3\n\5\nU"+
-		"\n\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\2\2X\2\25\3\2\2\2\4\31\3\2\2\2"+
-		"\6!\3\2\2\2\b-\3\2\2\2\n/\3\2\2\2\f\63\3\2\2\2\16A\3\2\2\2\20J\3\2\2\2"+
-		"\22T\3\2\2\2\24\26\5\4\3\2\25\24\3\2\2\2\26\27\3\2\2\2\27\25\3\2\2\2\27"+
-		"\30\3\2\2\2\30\3\3\2\2\2\31\32\7\3\2\2\32\34\7\13\2\2\33\35\5\6\4\2\34"+
-		"\33\3\2\2\2\34\35\3\2\2\2\35\36\3\2\2\2\36\37\5\b\5\2\37 \7\n\2\2 \5\3"+
-		"\2\2\2!%\7\4\2\2\"#\7\13\2\2#$\7\5\2\2$&\5\22\n\2%\"\3\2\2\2&\'\3\2\2"+
-		"\2\'%\3\2\2\2\'(\3\2\2\2()\3\2\2\2)*\7\n\2\2*\7\3\2\2\2+.\5\n\6\2,.\5"+
-		"\f\7\2-+\3\2\2\2-,\3\2\2\2.\t\3\2\2\2/\60\7\6\2\2\60\61\5\16\b\2\61\62"+
-		"\7\n\2\2\62\13\3\2\2\2\63<\7\7\2\2\64=\5\16\b\2\65\66\5\16\b\2\66\67\7"+
-		"\t\2\2\679\3\2\2\28\65\3\2\2\29:\3\2\2\2:8\3\2\2\2:;\3\2\2\2;=\3\2\2\2"+
-		"<\64\3\2\2\2<8\3\2\2\2=>\3\2\2\2>?\7\n\2\2?\r\3\2\2\2@B\5\20\t\2A@\3\2"+
-		"\2\2BC\3\2\2\2CA\3\2\2\2CD\3\2\2\2D\17\3\2\2\2EK\7\f\2\2FK\7\13\2\2GH"+
-		"\7\13\2\2HI\7\5\2\2IK\7\r\2\2JE\3\2\2\2JF\3\2\2\2JG\3\2\2\2K\21\3\2\2"+
-		"\2LU\7\13\2\2MN\7\13\2\2NP\7\17\2\2OM\3\2\2\2PQ\3\2\2\2QO\3\2\2\2QR\3"+
-		"\2\2\2RS\3\2\2\2SU\7\13\2\2TL\3\2\2\2TO\3\2\2\2U\23\3\2\2\2\f\27\34\'"+
-		"-:<CJQT";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17Q\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\6\2\22\n\2\r\2\16\2\23"+
+		"\3\3\3\3\3\3\5\3\31\n\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\6\4\"\n\4\r\4\16\4"+
+		"#\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\6\5\61\n\5\r\5\16\5\62\5"+
+		"\5\65\n\5\3\5\3\5\5\59\n\5\3\6\6\6<\n\6\r\6\16\6=\3\7\3\7\3\7\3\7\3\7"+
+		"\5\7E\n\7\3\b\3\b\3\b\6\bJ\n\b\r\b\16\bK\3\b\5\bO\n\b\3\b\2\2\t\2\4\6"+
+		"\b\n\f\16\2\2\2T\2\21\3\2\2\2\4\25\3\2\2\2\6\35\3\2\2\2\b8\3\2\2\2\n;"+
+		"\3\2\2\2\fD\3\2\2\2\16N\3\2\2\2\20\22\5\4\3\2\21\20\3\2\2\2\22\23\3\2"+
+		"\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\3\3\2\2\2\25\26\7\3\2\2\26\30\7\f"+
+		"\2\2\27\31\5\6\4\2\30\27\3\2\2\2\30\31\3\2\2\2\31\32\3\2\2\2\32\33\5\b"+
+		"\5\2\33\34\7\13\2\2\34\5\3\2\2\2\35!\7\4\2\2\36\37\7\f\2\2\37 \7\5\2\2"+
+		" \"\5\16\b\2!\36\3\2\2\2\"#\3\2\2\2#!\3\2\2\2#$\3\2\2\2$%\3\2\2\2%&\7"+
+		"\13\2\2&\7\3\2\2\2\'(\7\6\2\2()\5\n\6\2)*\7\13\2\2*9\3\2\2\2+\64\7\7\2"+
+		"\2,\65\5\n\6\2-.\5\n\6\2./\7\b\2\2/\61\3\2\2\2\60-\3\2\2\2\61\62\3\2\2"+
+		"\2\62\60\3\2\2\2\62\63\3\2\2\2\63\65\3\2\2\2\64,\3\2\2\2\64\60\3\2\2\2"+
+		"\65\66\3\2\2\2\66\67\7\13\2\2\679\3\2\2\28\'\3\2\2\28+\3\2\2\29\t\3\2"+
+		"\2\2:<\5\f\7\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\13\3\2\2\2?E\7"+
+		"\r\2\2@E\7\f\2\2AB\7\f\2\2BC\7\5\2\2CE\7\16\2\2D?\3\2\2\2D@\3\2\2\2DA"+
+		"\3\2\2\2E\r\3\2\2\2FO\7\f\2\2GH\7\f\2\2HJ\7\t\2\2IG\3\2\2\2JK\3\2\2\2"+
+		"KI\3\2\2\2KL\3\2\2\2LM\3\2\2\2MO\7\f\2\2NF\3\2\2\2NI\3\2\2\2O\17\3\2\2"+
+		"\2\f\23\30#\62\648=DKN";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
