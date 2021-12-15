@@ -13,11 +13,16 @@ typealias Types = MutableMap<String, String>
 
 class Evaluator(stream: CharStream) {
 
-    val lexer = CookbookLexer(stream)
-    val tokens = CommonTokenStream(lexer)
-    val parser = CookbookParser(tokens)
-    val tree = parser.program()
-    val cookbook = visit(tree)
+    private val cookbook: CookBook
+
+    init {
+        val lexer = CookbookLexer(stream)
+        val tokens = CommonTokenStream(lexer)
+        val parser = CookbookParser(tokens)
+        val tree = parser.program()
+
+        cookbook = visit(tree)
+    }
 
     fun eval(recipe: Recipe) = eval(recipe, cookbook)
 }
@@ -41,9 +46,11 @@ private fun evalList(input: ListRecipe, def: CookBook.Definition): String {
 
     val setTypes = mutableMapOf<String, String>()
 
-    val match = (recipe zzip input) all { (expected, actual) -> match(expected, actual, setTypes, def.materials) }
+    val match = (recipe zipOrNull input) maybeAll { (expected, actual) ->
+        match(expected, actual, setTypes, def.materials)
+    }
 
-    return if (match) item(def, setTypes) else undefined
+    return if (match) result(def, setTypes) else undefined
 }
 
 
@@ -52,15 +59,15 @@ private fun evalTable(input: TableRecipe, def: CookBook.Definition): String {
     val recipe = (def.recipe as? TableRecipe) ?: return undefined
     val setTypes = mutableMapOf<String, String>()
 
-    val match = (recipe zzip input) all { (recipeRow, inputRow) ->
-        (recipeRow zzip inputRow) all { (expected, actual) ->
+    val match = (recipe zipOrNull input) maybeAll { (recipeRow, inputRow) ->
+        (recipeRow zipOrNull inputRow) maybeAll { (expected, actual) ->
             match(expected, actual, setTypes, def.materials)
         }
     }
-    return if (match) item(def, setTypes) else undefined
+    return if (match) result(def, setTypes) else undefined
 }
 
-fun item(def: CookBook.Definition, setTypes: Types): String {
+fun result(def: CookBook.Definition, setTypes: Types): String {
     // item prefix ex: [Prefix] Item
     val itemType = if (setTypes.values.isEmpty()) "" else "${setTypes.values} "
     val itemID = def.name

@@ -27,12 +27,20 @@ class RecipeTest {
         val tables = listOf(tableA, tableB, tableC)
 
         val expectedTables = listOf(
-            table { row("a", "b", "c") },
-            table { row("a") },
-            table { row("a"); row("b"); row("c") }
+            table {
+                row("a", "b", "c")
+            },
+            table {
+                row("a")
+            },
+            table {
+                row("a")
+                row("b")
+                row("c")
+            }
         )
 
-        for ((expected, table) in (expectedTables zzip tables) ?: zzipError()) {
+        for ((expected, table) in (expectedTables zipOrNull tables) ?: zipError()) {
             assertEquals(expected, table)
         }
     }

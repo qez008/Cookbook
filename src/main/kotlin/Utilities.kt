@@ -5,27 +5,23 @@ sealed class Either<out L, out R> {
 }
 
 
-// zips collections of same size
-infix fun <T, S> Collection<T>.zzip(other: Collection<S>): List<Pair<T, S>>? =
+// zips collections if they have the same size, otherwise returns null
+infix fun <T, S> Collection<T>.zipOrNull(other: Collection<S>): List<Pair<T, S>>? =
     if (this.size == other.size) this zip other else null
 
-fun zzipError(): Nothing = error("zzip can't zip different length collections")
+fun zipError(): Nothing = error("zzip can't zip different length collections")
 
 
 // all function from collections with infix notation
-inline infix fun <T> Iterable<T>?.all(predicate: (T) -> Boolean): Boolean {
+inline infix fun <T> Iterable<T>?.maybeAll(predicate: (T) -> Boolean): Boolean {
 
     if (this == null) return false
     if (this is Collection && isEmpty()) return true
 
-    for (element in this) if (!predicate(element)) return false
+    for (element in this) {
+        if (!predicate(element)) return false
+    }
+
     return true
 }
 
-// any function from collections with infix notation
-inline infix fun <T> Iterable<T>.any(predicate: (T) -> Boolean): Boolean {
-
-    if (this is Collection && isEmpty()) return false
-    for (element in this) if (predicate(element)) return true
-    return false
-}

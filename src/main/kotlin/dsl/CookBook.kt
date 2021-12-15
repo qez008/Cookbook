@@ -14,8 +14,6 @@ data class CookBook(val definitions: List<Definition>) {
 }
 
 
-// ----------------- DSL functions -----------------
-
 fun cookbook(block: MutableList<CookBook.Definition>.() -> Unit): CookBook {
     val entries = mutableListOf<CookBook.Definition>()
     entries.apply(block)
@@ -30,8 +28,6 @@ fun MutableList<CookBook.Definition>.addDefinition(def: CookbookParser.Definitio
     this.add(CookBook.Definition(name, mats, rec))
 }
 
-
-// ----------------- Tree exploration -----------------
 
 fun visit(program: CookbookParser.ProgramContext): CookBook {
     return cookbook {
