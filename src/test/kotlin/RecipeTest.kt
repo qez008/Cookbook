@@ -47,7 +47,7 @@ class RecipeTest {
 
     @Test
     fun `list test`() {
-        val l = list("_", "a:1", "_", "b:2", "_")
-        assertEquals(list("a", "b:2"), l)
+        val l = list("_", "b:1", "_", "a:2", "_")
+        assertEquals(list("a:2", "b"), l)
     }
 }

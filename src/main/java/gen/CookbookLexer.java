@@ -17,8 +17,8 @@ public class CookbookLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, WS=8, End=9, ID=10, 
-		Blank=11, Num=12, Str=13;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, WS=9, 
+		End=10, ID=11, Num=12, Str=13;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -29,22 +29,22 @@ public class CookbookLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "WS", "End", 
-			"ID", "Blank", "Num", "Str"
+			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "WS", 
+			"End", "ID", "Num", "Str"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'item'", "'mats'", "':'", "'list'", "'table'", "','", "'/'", null, 
-			"'end'", null, "'_'"
+			null, "'item'", "'mats'", "':'", "'list'", "'table'", "','", "'_'", "'/'", 
+			null, "'end'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, "WS", "End", "ID", "Blank", 
+			null, null, null, null, null, null, null, null, null, "WS", "End", "ID", 
 			"Num", "Str"
 		};
 	}
@@ -111,26 +111,26 @@ public class CookbookLexer extends Lexer {
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3"+
 		"\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\b\3\b\3"+
-		"\t\6\t:\n\t\r\t\16\t;\3\t\3\t\3\n\3\n\3\n\3\n\3\13\3\13\7\13F\n\13\f\13"+
-		"\16\13I\13\13\3\f\3\f\3\r\3\r\3\r\7\rP\n\r\f\r\16\rS\13\r\5\rU\n\r\3\16"+
+		"\t\3\t\3\n\6\n<\n\n\r\n\16\n=\3\n\3\n\3\13\3\13\3\13\3\13\3\f\3\f\7\f"+
+		"H\n\f\f\f\16\fK\13\f\3\r\3\r\3\r\7\rP\n\r\f\r\16\rS\13\r\5\rU\n\r\3\16"+
 		"\3\16\6\16Y\n\16\r\16\16\16Z\3\16\3\16\3Z\2\17\3\3\5\4\7\5\t\6\13\7\r"+
 		"\b\17\t\21\n\23\13\25\f\27\r\31\16\33\17\3\2\7\4\2\13\f\"\"\4\2C\\c|\5"+
 		"\2\62;C\\c|\3\2\63;\3\2\62;\2b\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t"+
 		"\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2"+
 		"\2\2\25\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\3\35\3\2\2\2\5"+
 		"\"\3\2\2\2\7\'\3\2\2\2\t)\3\2\2\2\13.\3\2\2\2\r\64\3\2\2\2\17\66\3\2\2"+
-		"\2\219\3\2\2\2\23?\3\2\2\2\25C\3\2\2\2\27J\3\2\2\2\31T\3\2\2\2\33V\3\2"+
+		"\2\218\3\2\2\2\23;\3\2\2\2\25A\3\2\2\2\27E\3\2\2\2\31T\3\2\2\2\33V\3\2"+
 		"\2\2\35\36\7k\2\2\36\37\7v\2\2\37 \7g\2\2 !\7o\2\2!\4\3\2\2\2\"#\7o\2"+
 		"\2#$\7c\2\2$%\7v\2\2%&\7u\2\2&\6\3\2\2\2\'(\7<\2\2(\b\3\2\2\2)*\7n\2\2"+
 		"*+\7k\2\2+,\7u\2\2,-\7v\2\2-\n\3\2\2\2./\7v\2\2/\60\7c\2\2\60\61\7d\2"+
 		"\2\61\62\7n\2\2\62\63\7g\2\2\63\f\3\2\2\2\64\65\7.\2\2\65\16\3\2\2\2\66"+
-		"\67\7\61\2\2\67\20\3\2\2\28:\t\2\2\298\3\2\2\2:;\3\2\2\2;9\3\2\2\2;<\3"+
-		"\2\2\2<=\3\2\2\2=>\b\t\2\2>\22\3\2\2\2?@\7g\2\2@A\7p\2\2AB\7f\2\2B\24"+
-		"\3\2\2\2CG\t\3\2\2DF\t\4\2\2ED\3\2\2\2FI\3\2\2\2GE\3\2\2\2GH\3\2\2\2H"+
-		"\26\3\2\2\2IG\3\2\2\2JK\7a\2\2K\30\3\2\2\2LU\7\62\2\2MQ\t\5\2\2NP\t\6"+
+		"\67\7a\2\2\67\20\3\2\2\289\7\61\2\29\22\3\2\2\2:<\t\2\2\2;:\3\2\2\2<="+
+		"\3\2\2\2=;\3\2\2\2=>\3\2\2\2>?\3\2\2\2?@\b\n\2\2@\24\3\2\2\2AB\7g\2\2"+
+		"BC\7p\2\2CD\7f\2\2D\26\3\2\2\2EI\t\3\2\2FH\t\4\2\2GF\3\2\2\2HK\3\2\2\2"+
+		"IG\3\2\2\2IJ\3\2\2\2J\30\3\2\2\2KI\3\2\2\2LU\7\62\2\2MQ\t\5\2\2NP\t\6"+
 		"\2\2ON\3\2\2\2PS\3\2\2\2QO\3\2\2\2QR\3\2\2\2RU\3\2\2\2SQ\3\2\2\2TL\3\2"+
 		"\2\2TM\3\2\2\2U\32\3\2\2\2VX\7)\2\2WY\13\2\2\2XW\3\2\2\2YZ\3\2\2\2Z[\3"+
-		"\2\2\2ZX\3\2\2\2[\\\3\2\2\2\\]\7)\2\2]\34\3\2\2\2\b\2;GQTZ\3\b\2\2";
+		"\2\2\2ZX\3\2\2\2[\\\3\2\2\2\\]\7)\2\2]\34\3\2\2\2\b\2=IQTZ\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

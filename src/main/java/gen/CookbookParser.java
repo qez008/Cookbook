@@ -17,8 +17,8 @@ public class CookbookParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, WS=8, End=9, ID=10, 
-		Blank=11, Num=12, Str=13;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, WS=9, 
+		End=10, ID=11, Num=12, Str=13;
 	public static final int
 		RULE_program = 0, RULE_definition = 1, RULE_materials = 2, RULE_recipe = 3, 
 		RULE_row = 4, RULE_entry = 5, RULE_types = 6;
@@ -31,14 +31,14 @@ public class CookbookParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'item'", "'mats'", "':'", "'list'", "'table'", "','", "'/'", null, 
-			"'end'", null, "'_'"
+			null, "'item'", "'mats'", "':'", "'list'", "'table'", "','", "'_'", "'/'", 
+			null, "'end'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, "WS", "End", "ID", "Blank", 
+			null, null, null, null, null, null, null, null, null, "WS", "End", "ID", 
 			"Num", "Str"
 		};
 	}
@@ -399,7 +399,7 @@ public class CookbookParser extends Parser {
 						setState(48); 
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-					} while ( _la==ID || _la==Blank );
+					} while ( _la==T__6 || _la==ID );
 					}
 					break;
 				}
@@ -468,7 +468,7 @@ public class CookbookParser extends Parser {
 				setState(59); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==ID || _la==Blank );
+			} while ( _la==T__6 || _la==ID );
 			}
 		}
 		catch (RecognitionException re) {
@@ -494,7 +494,6 @@ public class CookbookParser extends Parser {
 		}
 	}
 	public static class BlankContext extends EntryContext {
-		public TerminalNode Blank() { return getToken(CookbookParser.Blank, 0); }
 		public BlankContext(EntryContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -558,7 +557,7 @@ public class CookbookParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(61);
-				match(Blank);
+				match(T__6);
 				}
 				break;
 			case 2:
@@ -648,7 +647,7 @@ public class CookbookParser extends Parser {
 						setState(69);
 						match(ID);
 						setState(70);
-						match(T__6);
+						match(T__7);
 						}
 						}
 						break;
@@ -686,19 +685,19 @@ public class CookbookParser extends Parser {
 		"\5\7E\n\7\3\b\3\b\3\b\6\bJ\n\b\r\b\16\bK\3\b\5\bO\n\b\3\b\2\2\t\2\4\6"+
 		"\b\n\f\16\2\2\2T\2\21\3\2\2\2\4\25\3\2\2\2\6\35\3\2\2\2\b8\3\2\2\2\n;"+
 		"\3\2\2\2\fD\3\2\2\2\16N\3\2\2\2\20\22\5\4\3\2\21\20\3\2\2\2\22\23\3\2"+
-		"\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\3\3\2\2\2\25\26\7\3\2\2\26\30\7\f"+
+		"\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\3\3\2\2\2\25\26\7\3\2\2\26\30\7\r"+
 		"\2\2\27\31\5\6\4\2\30\27\3\2\2\2\30\31\3\2\2\2\31\32\3\2\2\2\32\33\5\b"+
-		"\5\2\33\34\7\13\2\2\34\5\3\2\2\2\35!\7\4\2\2\36\37\7\f\2\2\37 \7\5\2\2"+
+		"\5\2\33\34\7\f\2\2\34\5\3\2\2\2\35!\7\4\2\2\36\37\7\r\2\2\37 \7\5\2\2"+
 		" \"\5\16\b\2!\36\3\2\2\2\"#\3\2\2\2#!\3\2\2\2#$\3\2\2\2$%\3\2\2\2%&\7"+
-		"\13\2\2&\7\3\2\2\2\'(\7\6\2\2()\5\n\6\2)*\7\13\2\2*9\3\2\2\2+\64\7\7\2"+
-		"\2,\65\5\n\6\2-.\5\n\6\2./\7\b\2\2/\61\3\2\2\2\60-\3\2\2\2\61\62\3\2\2"+
-		"\2\62\60\3\2\2\2\62\63\3\2\2\2\63\65\3\2\2\2\64,\3\2\2\2\64\60\3\2\2\2"+
-		"\65\66\3\2\2\2\66\67\7\13\2\2\679\3\2\2\28\'\3\2\2\28+\3\2\2\29\t\3\2"+
-		"\2\2:<\5\f\7\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\13\3\2\2\2?E\7"+
-		"\r\2\2@E\7\f\2\2AB\7\f\2\2BC\7\5\2\2CE\7\16\2\2D?\3\2\2\2D@\3\2\2\2DA"+
-		"\3\2\2\2E\r\3\2\2\2FO\7\f\2\2GH\7\f\2\2HJ\7\t\2\2IG\3\2\2\2JK\3\2\2\2"+
-		"KI\3\2\2\2KL\3\2\2\2LM\3\2\2\2MO\7\f\2\2NF\3\2\2\2NI\3\2\2\2O\17\3\2\2"+
-		"\2\f\23\30#\62\648=DKN";
+		"\f\2\2&\7\3\2\2\2\'(\7\6\2\2()\5\n\6\2)*\7\f\2\2*9\3\2\2\2+\64\7\7\2\2"+
+		",\65\5\n\6\2-.\5\n\6\2./\7\b\2\2/\61\3\2\2\2\60-\3\2\2\2\61\62\3\2\2\2"+
+		"\62\60\3\2\2\2\62\63\3\2\2\2\63\65\3\2\2\2\64,\3\2\2\2\64\60\3\2\2\2\65"+
+		"\66\3\2\2\2\66\67\7\f\2\2\679\3\2\2\28\'\3\2\2\28+\3\2\2\29\t\3\2\2\2"+
+		":<\5\f\7\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\13\3\2\2\2?E\7\t\2"+
+		"\2@E\7\r\2\2AB\7\r\2\2BC\7\5\2\2CE\7\16\2\2D?\3\2\2\2D@\3\2\2\2DA\3\2"+
+		"\2\2E\r\3\2\2\2FO\7\r\2\2GH\7\r\2\2HJ\7\n\2\2IG\3\2\2\2JK\3\2\2\2KI\3"+
+		"\2\2\2KL\3\2\2\2LM\3\2\2\2MO\7\r\2\2NF\3\2\2\2NI\3\2\2\2O\17\3\2\2\2\f"+
+		"\23\30#\62\648=DKN";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

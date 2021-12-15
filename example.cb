@@ -28,7 +28,9 @@ item Sword
 		blade : wood/stone/iron/gold/diamond
 	end
 	table
-		blade , blade , hilt ,
+		blade ,
+		blade ,
+		hilt ,
 	end
 end
 

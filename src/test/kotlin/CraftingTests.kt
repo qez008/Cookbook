@@ -172,8 +172,7 @@ class CraftingTests {
         val sandwichA = list("bread", "bread", "pepperoni", "salad")
         val sandwichB = list("bread", "bread", "ham", "salad")
         val sandwichC = list("bread", "bread", "chicken", "salad")
-        val sandwichD = list("bread", "bread", "wood", "salad")
-
+        val sandwichD = list("bread", "bread", "beyond", "salad")
         val expected = listOf("[pepperoni] Sandwich", "[ham] Sandwich", "[chicken] Sandwich", undefined)
         val sandwiches = listOf(sandwichA, sandwichB, sandwichC, sandwichD)
 

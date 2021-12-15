@@ -9,6 +9,7 @@ typealias Materials = Map<String, List<String>>
 
 
 data class Cookbook(val definitions: List<Definition>) {
+
     data class Definition(val name: String, val materials: Materials, val recipe: Recipe)
 
 }
@@ -23,13 +24,13 @@ fun cookbook(block: MutableList<Cookbook.Definition>.() -> Unit): Cookbook {
 
 fun MutableList<Cookbook.Definition>.addDefinition(def: CookbookParser.DefinitionContext) {
     val name = def.ID().text
-    val mats = visit(def.materials())
-    val rec = visit(def.recipe())
+    val mats = convert(def.materials())
+    val rec = convert(def.recipe())
     this.add(Cookbook.Definition(name, mats, rec))
 }
 
-
-fun visit(program: CookbookParser.ProgramContext): Cookbook {
+// converts parse tree to Cookbook
+fun convert(program: CookbookParser.ProgramContext): Cookbook {
     return cookbook {
         for (def in program.definition()) {
             addDefinition(def)
@@ -37,7 +38,7 @@ fun visit(program: CookbookParser.ProgramContext): Cookbook {
     }
 }
 
-fun visit(materials: CookbookParser.MaterialsContext?): Map<String, List<String>> {
+fun convert(materials: CookbookParser.MaterialsContext?): Map<String, List<String>> {
 
     materials ?: return emptyMap()
 
@@ -47,37 +48,37 @@ fun visit(materials: CookbookParser.MaterialsContext?): Map<String, List<String>
     return (ids zip types).toMap()
 }
 
-fun visit(recipe: CookbookParser.RecipeContext): Recipe =
+fun convert(recipe: CookbookParser.RecipeContext): Recipe =
     when (recipe) {
-        is CookbookParser.ListContext -> visit(recipe)
-        is CookbookParser.TableContext -> visit(recipe)
+        is CookbookParser.ListContext -> {
+            list(*convert(recipe.row()).toTypedArray())
+        }
+        is CookbookParser.TableContext -> {
+            table {
+                for (row in convert(recipe)) {
+                    row(*row.toTypedArray())
+                }
+            }
+        }
+
         else -> error("Either list or table should not be null!")
     }
 
-fun visit(table: CookbookParser.TableContext): Recipe =
-    table {
-        for (row in tableContextToList(table)) {
-            row(*row.toTypedArray())
-        }
-    }
 
-fun visit(list: CookbookParser.ListContext): Recipe =
-    list(*listContextToList(list).toTypedArray())
+fun convert(table: CookbookParser.TableContext): List<List<String>> =
+    table.row().map(::convert)
 
 
-fun tableContextToList(table: CookbookParser.TableContext): List<List<String>> =
-    table.row().map { row -> row.entry().map(::entryToString) }
+fun convert(row: CookbookParser.RowContext): List<String> =
+    row.entry().map(::convert)
 
 
-fun listContextToList(list: CookbookParser.ListContext): List<String> =
-    list.row().entry().map(::entryToString).sorted()
-
-
-fun entryToString(entry: CookbookParser.EntryContext): String =
+fun convert(entry: CookbookParser.EntryContext): String =
     when (entry) {
         is CookbookParser.BlankContext -> blank
         is CookbookParser.IdContext -> entry.text
         is CookbookParser.IdAndNumContext -> "${entry.ID()}:${entry.Num()}"
+
         else -> error("unknown entry context")
     }
 

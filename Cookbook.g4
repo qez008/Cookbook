@@ -6,7 +6,6 @@ WS : [ \t\n]+ -> skip ;
 End : 'end';
 
 ID : [a-zA-Z][a-zA-Z0-9]*;
-Blank : '_';
 
 Num : '0' | [1-9][0-9]*;
 Str : '\'' .+? '\'';
@@ -24,7 +23,7 @@ recipe : 'list' row End 					#list
 
 row : entry+;
 
-entry : Blank 		# blank
+entry : '_' 		# blank
       | ID			# id
       | ID':'Num	# idAndNum
       ;

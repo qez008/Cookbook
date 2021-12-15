@@ -21,7 +21,7 @@ class Evaluator(stream: CharStream) {
         val parser = CookbookParser(tokens)
         val tree = parser.program()
 
-        cookbook = visit(tree)
+        cookbook = convert(tree)
     }
 
     fun eval(recipe: Recipe) = eval(recipe, cookbook)

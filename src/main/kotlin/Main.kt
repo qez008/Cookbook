@@ -1,4 +1,4 @@
-import dsl.visit
+import dsl.convert
 import gen.CookbookLexer
 import gen.CookbookParser
 import org.antlr.v4.runtime.CharStream
@@ -20,7 +20,7 @@ fun main() {
 
     val input = CharStreams.fromFileName("example.cb")
     val program = program(input)
-    val cookbook = visit(program)
+    val cookbook = convert(program)
 
     for (entry in cookbook.definitions) {
         println(entry.name)
